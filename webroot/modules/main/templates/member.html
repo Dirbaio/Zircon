@@ -117,7 +117,7 @@
 	{% for comment in comments %}
 	<tr>
 		<td class="cell2 fulllink">
-			<a class="nolink" href="{{ urlformat('u#-:', comment.u.id, comment.u.name)}}">
+			<a class="nolink" href="{{ urlformat('u/#-:', comment.u.id, comment.u.name)}}">
 			{{ usertext(comment.u) }}<br>
 			{{ comment.date | date }}</a>
 		</td>
