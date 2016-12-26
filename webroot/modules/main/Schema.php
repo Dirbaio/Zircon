@@ -658,7 +658,7 @@ class Schema
 					'name' => self::varchar(32),
 					'displayname' => self::varchar(32),
 					'password' => self::varchar(256),
-					'pss' => self::varchar(16),
+					'pss' => self::varchar(128),
 					'powerlevel' => $int,
 					'posts' => $int,
 					'threads' => $int,
