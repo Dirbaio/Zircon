@@ -550,7 +550,6 @@ class Schema
 					'iplockaddr' => self::varchar(128),
 					'lastip' => self::varchar(128),
 					'lasturl' => self::varchar(128),
-					'lasttime' => $int,
 				),
 				'keys' => array
 				(
@@ -723,7 +722,7 @@ class Schema
 						'fields' => array('lastforum'),
 					),
 					array(
-						'fields' => array('lastposttime'),
+						'fields' => array('lastpostdate'),
 					),
 					array(
 						'fields' => array('lastactivity'),

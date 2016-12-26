@@ -40,7 +40,7 @@ class OnlineUsers
 		$users = Sql::queryAll(
 			"SELECT user.(_userfields)
 			FROM {users} user
-			WHERE (? = 0 OR lastforum = ?) AND (lastactivity > ? or lastposttime > ?) AND loggedin = 1
+			WHERE (? = 0 OR lastforum = ?) AND (lastactivity > ? or lastpostdate > ?) AND loggedin = 1
 			ORDER BY name",
 			$fid, $fid, time()-300, time()-300);
 		

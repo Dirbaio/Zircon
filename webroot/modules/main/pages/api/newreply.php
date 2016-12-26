@@ -15,7 +15,7 @@ function request($text='', $tid=0)
 	if($thread['lastposter'] == Session::id() && $thread['lastpostdate'] >= time()-86400 && !Permissions::canMod($forum))
 		fail(__("You can't double post until it's been at least one day."));
 
-	$lastPost = time() - Session::get('lastposttime');
+	$lastPost = time() - Session::get('lastpostdate');
 	if($lastPost < 10)//Settings::get("floodProtectionInterval"))
 	{
 		//Check for last post the user posted.
@@ -30,7 +30,7 @@ function request($text='', $tid=0)
 
 	$now = time();
 
-	Sql::query('UPDATE {users} set posts=posts+1, lastposttime=? WHERE id=?',
+	Sql::query('UPDATE {users} set posts=posts+1, lastpostdate=? WHERE id=?',
 		time(), Session::id());
 
 	Sql::query("INSERT INTO {posts} (thread, user, date, editdate, ip, num) VALUES (?,?,?,?,?,?)",

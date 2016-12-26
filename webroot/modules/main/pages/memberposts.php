@@ -24,7 +24,7 @@ function request($id, $from=0)
 		'SELECT
 			p.*,
 			pt.text, pt.revision, pt.user AS revuser, pt.date AS revdate,
-			userposted.(_userfields,rankset,title,picture,posts,postheader,signature,signsep,lastposttime,lastactivity,regdate,globalblock),
+			userposted.(_userfields,rankset,title,picture,posts,postheader,signature,signsep,lastpostdate,lastactivity,regdate,globalblock),
 			t.(id, title),
 			f.(id, title, minpower),
 			useredited.(_userfields),

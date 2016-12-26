@@ -8,7 +8,7 @@ class Records
 		$misc = Sql::querySingle('SELECT * FROM {misc}');
 
 		$onlineUsers = Sql::queryAll(
-				'SELECT id FROM {users} WHERE lastactivity > ? or lastposttime > ? ORDER BY name',
+				'SELECT id FROM {users} WHERE lastactivity > ? or lastpostdate > ? ORDER BY name',
 				time()-300, time()-300);
 
 		// Max users record.

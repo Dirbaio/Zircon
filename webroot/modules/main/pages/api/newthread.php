@@ -13,7 +13,7 @@ function request($fid, $title='', $text='', $poll=false, $pollquestion='', $poll
 	Validate::notEmpty($text, __('Your post is empty. Enter a message and try again.'));
 	Validate::notEmpty($title, __('Your thread is unnamed. Enter a thread title and try again.'));
 
-	$lastPost = time() - Session::get('lastposttime');
+	$lastPost = time() - Session::get('lastpostdate');
 	if($lastPost < 10)//Settings::get('floodProtectionInterval'))
 	{
 		//Check for last post the user posted.
@@ -80,7 +80,7 @@ function request($fid, $title='', $text='', $poll=false, $pollquestion='', $poll
 	Sql::query('UPDATE {forums} SET numposts=numposts+1, numthreads=numthreads+1, lastpostdate=?, lastpostuser=?, lastpostid=? where id=?',
 		$now, Session::id(), $pid, $fid);
 
-	Sql::query('UPDATE {users} SET posts=posts+1, lastposttime=? WHERE id=?',
+	Sql::query('UPDATE {users} SET posts=posts+1, lastpostdate=? WHERE id=?',
 		time(), Session::id());
 
 	//Erase the draft
