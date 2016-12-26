@@ -71,6 +71,8 @@ function getBase() {
 
 function renderPage($template, $vars)
 {
+	global $config;
+	
 	$navigation = array(
 		array('url' => Url::format('/'), 'title' => __('Main')),
 		array('url' => Url::format('/members'), 'title' => __('Members')),
@@ -110,10 +112,10 @@ function renderPage($template, $vars)
 		'template' => $template,
 		'css' => ModuleHandler::toWebPath(ModuleHandler::getFilesMatching('/css/**.css')),
 		'js' => ModuleHandler::toWebPath(ModuleHandler::getFilesMatching('/js/**.js')),
-		'title' => 'RandomTests',
-		'pora' => true,
-		'poratext' => 'Hello World',
-		'poratitle' => 'ASDF',
+		'title' => Config::get('title'),
+		'pora' => Config::get('pora'),
+		'poratext' => Config::get('poratext'),
+		'poratitle' => Config::get('poratitle'),
 		'views' => Records::getViewCounter(),
 		'user' => $user,
 		'navigation' => $navigation,

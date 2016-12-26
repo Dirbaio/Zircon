@@ -9,4 +9,5 @@ $config = array(
 		'prefix' => '',
 	),
 	'salt' => 'blablablub',
+	'title' => 'Zircon',
 );
