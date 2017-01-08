@@ -15,13 +15,12 @@ angular.module('app')
 		}  
 		var lol = escape(sKey) + "=" + escape(sValue) + sExpires + (sDomain ? "; domain=" + sDomain : "") + (sPath ? "; path=" + sPath : "") + (bSecure ? "; secure" : "");
 		document.cookie = lol;
-	}
-
+	};
 
 	$scope.toggleMobileLayout = function(enabled) {
 		setCookie("mobileversion", enabled, 20*365*24*60*60, "/");
 		$window.location.reload();
-	}
+	};
 
 	$scope.deletePost = function(pid) {
 		var reason = prompt("Enter a reason for deletion:");
@@ -29,8 +28,8 @@ angular.module('app')
 		if(reason === null)
 			return;
 
-		$scope.doAction('/api/deletepost', {pid: pid, del:1, reason:reason});
-	}
+		ajax('/api/deletepost', {pid: pid, del:1, reason:reason});
+	};
 
 	$scope.renameThread = function(tid) {
 		var name = prompt("Enter new thread name");
@@ -38,12 +37,10 @@ angular.module('app')
 		if(name === null)
 			return;
 
-		$scope.doAction('/api/renamethread', {tid: tid, name: name});
-	}
+		ajax('/api/renamethread', {tid: tid, name: name});
+	};
 
-	$scope.doAction = function(api, args) {
-		ajax(api, args, function(redirect) {
-			window.location = redirect;
-		});
-	}
+	$scope.logout = function(tid) {
+		ajax('/api/logout', {});
+	};
 })

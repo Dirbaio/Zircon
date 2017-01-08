@@ -82,7 +82,7 @@ function renderPage($template, $vars)
 			array('user' => $user),
 			array('url' => Url::format('/u/#-:/edit', $user['id'], $user['name']), 'title' => __('Edit profile')),
 			array('url' => Url::format('/u/#-:/pm', $user['id'], $user['name']), 'title' => __('Messages')),
-			array('url' => Url::format('/logout'), 'title' => __('Log out')),
+			array('ng' => "logout()", 'title' => __('Log out')),
 		);
 	else
 		$userpanel = array(

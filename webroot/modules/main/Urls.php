@@ -56,8 +56,10 @@ $urls = array(
     
     # Session stuff
     'GET /login' => 'login',
+    'POST /api/login' => 'api/login',
     'GET /register' => 'register',
-    'GET /logout' => 'logout',
+    'POST /api/register' => 'api/register',
+    'POST /api/logout' => 'api/logout',
 
     # Admin stuff
     'GET /recalc' => 'recalc',

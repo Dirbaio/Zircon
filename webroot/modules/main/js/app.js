@@ -15,7 +15,7 @@ angular.module('app', [
 		for (var i=0; i < metas.length; i++) { 
 			if (metas[i].getAttribute("name") == "csrftoken") { 
 				return metas[i].getAttribute("content"); 
-			} 
+			}
 		}
 		return '';
 	}
@@ -29,7 +29,10 @@ angular.module('app', [
 			transformResponse: []
 		})
 		.success(function(data, status, headers, config) {
-			callback(angular.fromJson(data));
+			if(callback)
+				callback(angular.fromJson(data));
+			else
+				window.location = angular.fromJson(data);
 		})
 		.error(function(data, status, headers, config) {
 			if(error)

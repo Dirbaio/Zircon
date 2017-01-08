@@ -1,12 +1,5 @@
-{% if error != '' %}
-	<table class="message outline margin">
-		<tr class="header0"><th>Alert</th></tr>
-		<tr class="cell0"><td>{{ error }}</td></tr>
-	</table>
-{% endif %}
-
-<form action="/register" method="post">
-	<table class="outline margin width50">
+<form ng-controller="RegisterCtrl" ng-submit="register()">
+	<table class="outline margin">
 		<tr class="header0">
 			<th colspan="2">
 				Register
@@ -17,7 +10,7 @@
 				<label for="un">User name</label>
 			</td>
 			<td class="cell0">
-				<input type="text" id="un" name="username" value="{{username}}" maxlength="20" style="width: 98%;"  class="required" />
+				<input type="text" id="un" ng-model="data.username" maxlength="20" />
 			</td>
 		</tr>
 		<tr>
@@ -25,9 +18,9 @@
 				<label for="pw">Password</label>
 			</td>
 			<td class="cell1">
-				<input type="password" id="pw" name="pass" size="13" maxlength="32" class="required" /> 
+				<input type="password" id="pw" ng-model="data.pass" size="13" maxlength="32" /> 
                 Repeat:
-                <input type="password" id="pw2" name="pass2" size="13" maxlength="32" class="required" />
+                <input type="password" id="pw2" ng-model="data.pass2" size="13" maxlength="32" />
 			</td>
 		</tr>
 		<tr>
@@ -35,13 +28,13 @@
 				<label for="email">Email address</label>
 			</td>
 			<td class="cell0">
-				<input type="email" id="email" name="email" value="{{email}}" style="width: 98%;" maxlength="60" />
+				<input type="email" id="email" ng-model="data.email" />
 			</td>
 		</tr>
 		<tr class="cell2">
 			<td></td>
 			<td>
-				<input type="submit" name="action" value="Register"/>
+				<input type="submit" value="Register"/>
 			</td>
 		</tr>
 		<tr>
