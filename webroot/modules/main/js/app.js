@@ -10,7 +10,18 @@ angular.module('app', [
 })
 
 .factory('ajax', function($http, urlStyle) {
+	function getCsrfToken() {
+		var metas = document.getElementsByTagName('meta'); 
+		for (var i=0; i < metas.length; i++) { 
+			if (metas[i].getAttribute("name") == "csrftoken") { 
+				return metas[i].getAttribute("content"); 
+			} 
+		}
+		return '';
+	}
+
 	return function (path, param, callback, error) {
+		param.csrftoken = getCsrfToken();
 		$http({
 			method: 'POST',
 			url: urlStyle(path),

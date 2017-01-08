@@ -42,26 +42,16 @@ else
 
 function getPages()
 {
-	$prefix = '//page ';
-	
-	$pages = array();
-	foreach(ModuleHandler::getFilesMatching('/pages/**.php') as $file) 
-	{
-		$handle = @fopen($file, 'r');
-		if (!$handle)  continue;
-
-		while (($line = fgets($handle, 4096)) !== false)
-			if(startsWith($line, $prefix))
-			{
-				$page = substr($line, strlen($prefix));
-				$page = trim($page);
-				$pages[$page] = $file;
-			}
-		
-		fclose($handle);
+	$totalUrls = [];
+	foreach(ModuleHandler::getFilesMatching("/Urls.php") as $file) {
+		require($file);
+		foreach($urls as $key => &$val) {
+			$val = substr($file, 0, strlen($file)-8) . 'pages/' . $val . '.php';
+		}
+		$totalUrls = array_merge($totalUrls, $urls);
 	}
-
-	return $pages;
+	
+	return $totalUrls;
 }
 
 function getBase() {
@@ -125,6 +115,7 @@ function renderPage($template, $vars)
 		'userpanel' => $userpanel,
 		'onlineUsers' => OnlineUsers::update($onlineFid),
 		'base' => getBase(),
+		'csrftoken' => Csrf::get(),
 	);
 	$vars['layout'] = $layout;
 	$vars['loguser'] = Session::get();
@@ -141,10 +132,44 @@ function renderPage($template, $vars)
 
 }
 
-function runPage($path)
-{
+function matchPage($method, $path) {
 	$pages = getPages();
 
+	$path = "$method $path";
+	foreach($pages as $page => $pagefile)
+	{
+		//match $path against $page
+		$names = array();
+		$pattern = preg_replace_callback('/(:|#|\$)([a-zA-Z][a-zA-Z0-9]*|)/', 
+			function($matches) use (&$names) {
+				if($matches[1] == '#')
+					$regex = '-?[0-9]+';
+				else if($matches[1] == '$')
+					$regex = '[^/]+';
+				else
+					$regex = '[a-zA-Z0-9-_]+';
+				if($matches[2]) {
+					$name = $matches[2];
+					$names[] = $name;
+					return '(?P<'.$name.'>'.$regex.')';
+				}
+				else
+					return $regex;
+			},
+			$page
+		);
+
+		if (preg_match('#^' . $pattern . '$#', $path, $matches)) {
+			$input = array();
+			foreach($names as $name)
+				$input[$name] = $matches[$name];
+			return [$pagefile, $input];
+		}
+	}
+	return null;
+}
+
+function cleanUpPath($path) {
 	//Kill trailing and extra slashes.
 	$origpath = $path;
 	$path = preg_replace('#/+$#', '', $path);
@@ -152,62 +177,38 @@ function runPage($path)
 	if($path == '') $path = '/';
 	if($path != $origpath)
 		Url::redirect($path);
+	return $path;
+}
 
+function run() {
+	$path = UrlStyle::getPath();
+	$path = cleanUpPath($path);
+		
+	$match = matchPage($_SERVER['REQUEST_METHOD'], $path);
+	if($match) {
+		$pagefile = $match[0];
+		$pageparams = $match[1];
 
-	if ($_SERVER['REQUEST_METHOD'] === 'POST') 
-	{
-		$input = json_decode(file_get_contents('php://input'), true);
-		if(!is_array($input) || json_last_error() !== JSON_ERROR_NONE)
-			$input = $_POST;
-
-		foreach($_GET as $key => $value)
-			$input[$key] = $value;
-	}
-	else
-		$input = $_GET;
-
-	$foundPagefile = null;
-	foreach($pages as $page=>$pagefile)
-	{
-		//match $path against $page
-		$names = array();
-		$pattern = preg_replace_callback('/(:|#|\$)([a-zA-Z][a-zA-Z0-9]*|)/', 
-			function($matches) use (&$names) 
-			{
-				if($matches[1] == '#')
-					$regex = '-?[0-9]+';
-				else if($matches[1] == '$')
-					$regex = '[^/]+';
-				else
-					$regex = '[a-zA-Z0-9-_]+';
-				if($matches[2])
-				{
-					$names[] = $matches[2];
-					return '('.$regex.')';
-				}
-				else
-					return $regex;
-			}, $page);
-
-		if (preg_match('#^' . $pattern . '$#', $path, $matches)) 
+		if ($_SERVER['REQUEST_METHOD'] === 'POST') 
 		{
-			foreach($names as $idx => $name)
-				$input[$name] = $matches[$idx+1];
-
-			$foundPagefile = $pagefile;
-			break;
+			$input = json_decode(file_get_contents('php://input'), true);
+			if(!is_array($input) || json_last_error() !== JSON_ERROR_NONE)
+				die("Invalid JSON data");
+			Csrf::check($input['csrftoken']);
 		}
-	}
-
-	if(!$foundPagefile) {
-		$foundPagefile = __DIR__.'/modules/main/pages/404.php';
+		else
+			$input = $_GET;
+			
+		$input = array_merge($input, $pageparams);
+		$input['input'] = $input;
+	} else {
+		$pagefile = __DIR__.'/modules/main/pages/404.php';
+		$input = array();
 		global $is404;
 		$is404 = true;
 	}
 
-	$input['input'] = $input;
-
-	require($foundPagefile);
+	require($pagefile);
 
 	//Calculate parameters
 	$params = array();
@@ -226,5 +227,4 @@ function runPage($path)
 	call_user_func_array('request', $params);
 }
 
-
-runPage(UrlStyle::getPath());
+run();

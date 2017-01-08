@@ -136,4 +136,3 @@ function request($id, $from=0)
 		'title' => $forum['title'],
 	));
 }
-
