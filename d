@@ -8,50 +8,50 @@ args=${*:2}
 
 case $task in
     build)
-        docker build -t abxd .
+        docker build -t zircon .
         ;;
     start)
-        if ! docker inspect abxd_db > /dev/null 2> /dev/null; then
+        if ! docker inspect zircon_db > /dev/null 2> /dev/null; then
             mkdir -p data/mysql
             docker run -d \
-                --name abxd_db \
+                --name zircon_db \
                 -e MYSQL_ROOT_PASSWORD=root \
-                -e MYSQL_DATABASE=abxd \
-                -e MYSQL_USER=abxd \
-                -e MYSQL_PASSWORD=abxd \
+                -e MYSQL_DATABASE=zircon \
+                -e MYSQL_USER=zircon \
+                -e MYSQL_PASSWORD=zircon \
                 -v $PWD/data/mysql:/var/lib/mysql \
                 mysql:5.7
         fi
-        docker start abxd_db
+        docker start zircon_db
         sleep 2
 
         docker run \
             -it --rm \
-            --name abxd \
+            --name zircon \
             -p 0.0.0.0:80:80 \
-            --link abxd_db:db \
+            --link zircon_db:db \
             -v $PWD:/app \
             -v $PWD/data:/data \
-            abxd
+            zircon
         ;;
     stop)
-        docker stop abxd_db
-        docker stop abxd
+        docker stop zircon_db
+        docker stop zircon
         ;;
     shell)
-        docker exec -i -t abxd bash
+        docker exec -i -t zircon bash
         ;;
     dbshell)
-        docker exec -ti abxd_db mysql -u abxd --password=abxd abxd
+        docker exec -ti zircon_db mysql -u zircon --password=zircon zircon
         ;;
     loaddb)
-        docker exec -i abxd_db mysql -u abxd --password=abxd abxd < $arg
+        docker exec -i zircon_db mysql -u zircon --password=zircon zircon < $arg
         ;;
     dumpdb)
-        docker exec -i abxd_db mysqldump --password=root abxd > $arg
+        docker exec -i zircon_db mysqldump --password=root zircon > $arg
         ;;
     upgrade)
-        docker exec -i abxd sh -c 'echo UPGRADING DB... && php webroot/upgrade.php && echo RECALCULATING STATISTICS... && php webroot/index.php /recalc'
+        docker exec -i zircon sh -c 'echo UPGRADING DB... && php webroot/upgrade.php && echo RECALCULATING STATISTICS... && php webroot/index.php /recalc'
         ;;
     '')
         echo 'Usage: ./d action [params].'
