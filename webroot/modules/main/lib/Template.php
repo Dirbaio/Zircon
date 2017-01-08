@@ -54,6 +54,14 @@ class Template
 		self::$twig->addFilter(new Twig_SimpleFilter('cleanUpPost', function ($text) {
 			return cleanUpPost($text);
 		}));
+		self::$twig->addFunction(new Twig_SimpleFunction('perf', function () {
+			global $startTime;
+			print(sprintf('%1.3f', (microtime(true)-$startTime)*1000) . " ms");
+		}));
+		self::$twig->addFunction(new Twig_SimpleFunction('queries', function () {
+			global $queryCount;
+			print($queryCount);
+		}));
 	}
 
 	public static function render($file, $vars)

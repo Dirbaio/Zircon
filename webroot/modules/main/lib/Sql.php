@@ -39,6 +39,9 @@ class Sql
 
 	public static function query()
 	{
+		global $queryCount;
+		$queryCount++;
+		
 		//Get the query and the args
 		$args = func_get_args();
 		if (is_array($args[0])) $args = $args[0];

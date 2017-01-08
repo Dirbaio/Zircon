@@ -1,5 +1,8 @@
 <?php
 
+$startTime = microtime(true);
+$queryCount = 0;
+
 // Error handling
 //==============================
 
