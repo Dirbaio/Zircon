@@ -1,9 +1,4 @@
 <?php 
-//page /members
-
-//ABXD LEGACY
-//page /memberlist
-//page /memberlist.php
 
 function request()
 {

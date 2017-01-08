@@ -1,5 +1,4 @@
 <?php
-//page /api/unstickthread
 
 function request($tid)
 {

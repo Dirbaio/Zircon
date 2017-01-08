@@ -3,6 +3,8 @@
 angular.module('app')
 
 .controller('PageCtrl', function($scope, $window, ajax) {
+	$scope.ajax = ajax;
+	
 	function setCookie(sKey, sValue, vEnd, sPath, sDomain, bSecure) {  
 		if (!sKey || /^(?:expires|max\-age|path|domain|secure)$/.test(sKey)) { return; }  
 		var sExpires = "";  
@@ -22,22 +24,22 @@ angular.module('app')
 		$window.location.reload();
 	};
 
-	$scope.deletePost = function(pid) {
+	$scope.postDelete = function(pid) {
 		var reason = prompt("Enter a reason for deletion:");
 		
 		if(reason === null)
 			return;
 
-		ajax('/api/deletepost', {pid: pid, del:1, reason:reason});
+		ajax('/api/postdelete', {pid: pid, del:1, reason:reason});
 	};
 
-	$scope.renameThread = function(tid) {
+	$scope.threadRename = function(tid) {
 		var name = prompt("Enter new thread name");
 		
 		if(name === null)
 			return;
 
-		ajax('/api/renamethread', {tid: tid, name: name});
+		ajax('/api/threadrename', {tid: tid, name: name});
 	};
 
 	$scope.logout = function(tid) {

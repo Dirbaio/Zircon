@@ -1,9 +1,4 @@
 <?php 
-//page /file/:id
-//page /file/:id/$
-
-//ABXD LEGACY
-//page /get.php
 
 function request($id)
 {

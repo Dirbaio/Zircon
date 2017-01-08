@@ -1,5 +1,4 @@
 <?php
-//page /api/openthread
 
 function request($tid)
 {
@@ -10,10 +9,10 @@ function request($tid)
 	Permissions::assertCanViewForum($forum);
 	Permissions::assertCanMod($forum);
 
-	if(!$thread['closed'])
-		fail(__('This thread is not closed.'));
+	if($thread['sticky'])
+		fail(__('This thread is already stickied.'));
 	
-	Sql::query('UPDATE {threads} SET closed=0 WHERE id=?', $tid);
+	Sql::query('UPDATE {threads} SET sticky=1 WHERE id=?', $tid);
 
 	json(Url::format('/#-:/#-:', $fid, $forum['title'], $tid, $thread['title']));
 }

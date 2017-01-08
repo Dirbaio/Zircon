@@ -1,5 +1,4 @@
 <?php
-//page /api/newthread
 
 function request($fid, $title='', $text='', $poll=false, $pollquestion='', $polldoublevote=false, $pollchoices=NULL)
 {

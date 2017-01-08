@@ -1,5 +1,4 @@
 <?php
-//page /api/deletepost
 
 function request($pid=0, $del=0, $reason='')
 {

@@ -1,5 +1,4 @@
 <?php
-//page /api/renamethread
 
 function request($tid, $name)
 {

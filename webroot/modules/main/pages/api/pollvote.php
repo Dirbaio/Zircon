@@ -1,5 +1,4 @@
 <?php
-//page /api/pollvote
 
 function request($tid, $choice)
 {

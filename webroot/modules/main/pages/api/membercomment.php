@@ -1,5 +1,4 @@
 <?php
-//page /api/usercomment
 
 function request($text='', $id=0)
 {

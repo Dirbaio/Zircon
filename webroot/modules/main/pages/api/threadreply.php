@@ -1,5 +1,4 @@
 <?php
-//page /api/newreply
 
 function request($text='', $tid=0)
 {

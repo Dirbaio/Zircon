@@ -1,7 +1,5 @@
 <?php
 
-//page /lastposts
-
 function request() {
 	$hours = 72;
 	$limit = 100;

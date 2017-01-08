@@ -15,23 +15,23 @@ $urls = array(
     'POST /api/markasread' => 'api/markasread',
 
     # Posting stuff
-    'POST /api/newreply' => 'api/newreply',
-    'GET /#id(-:)?/newthread' => 'newthread',
-    'POST /api/newthread' => 'api/newthread',
-    'GET /post/#pid/edit' => 'editpost',
-    'POST /api/editpost' => 'api/editpost',
+    'POST /api/threadreply' => 'api/threadreply',
+    'GET /#id(-:)?/new' => 'threadnew',
+    'POST /api/threadnew' => 'api/threadnew',
+    'GET /post/#pid/edit' => 'postedit',
+    'POST /api/postedit' => 'api/postedit',
     'POST /api/preview' => 'api/preview',
     'POST /api/savedraft' => 'api/savedraft',
     'POST /api/getquote' => 'api/getquote',
-    'POST /api/pollvote' => 'api/pollvote',
+    'POST /api/threadpollvote' => 'api/threadpollvote',
 
     # Moderation stuff
-    'POST /api/renamethread' => 'api/renamethread',
-    'POST /api/closethread' => 'api/closethread',
-    'POST /api/openthread' => 'api/openthread',
-    'POST /api/deletepost' => 'api/deletepost',
-    'POST /api/stickthread' => 'api/stickthread',
-    'POST /api/unstickthread' => 'api/unstickthread',
+    'POST /api/postdelete' => 'api/postdelete',
+    'POST /api/threadrename' => 'api/threadrename',
+    'POST /api/threadopen' => 'api/threadopen',
+    'POST /api/threadclose' => 'api/threadclose',
+    'POST /api/threadstick' => 'api/threadstick',
+    'POST /api/threadunstick' => 'api/threadunstick',
 
     # Member stuff
     'GET /members' => 'members',
@@ -41,15 +41,16 @@ $urls = array(
     'GET /u/#id(-:)?/edit' => 'memberedit',
     'GET /u/#id(-:)?/posts(/p#from)?' => 'memberposts',
     'GET /u/#id(-:)?/threads(/p#from)?' => 'memberthreads',
-    'POST /api/usercomment' => 'api/usercomment',
+    'POST /api/membercomment' => 'api/membercomment',
     
     # PM stuff
-    'GET /u/#(-:)?/pm/new' => 'newprivate',
+    'GET /u/#(-:)?/pm/new' => 'pmnew',
     'GET /pm/post/#pid' => 'pmpost',
     'GET /u/#uid(-:)?/pm/#tid(-:)?(/p#from)?' => 'pmthread',
     'GET /u/#id(-:)?/pm?(/p#from)?' => 'pmthreads',
-    'POST /api/newprivate' => 'api/newprivate',
-    'POST /api/privatereply' => 'api/privatereply',
+    'POST /api/pmnew' => 'api/pmnew',
+    'POST /api/pmreply' => 'api/pmreply',
+    'POST /api/pmquote' => 'api/pmquote',
 
     # Misc stuff
     'GET /lastposts' => 'lastposts',

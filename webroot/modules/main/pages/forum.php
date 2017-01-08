@@ -1,13 +1,4 @@
 <?php 
-//page /#id
-//page /#id-:
-//page /#id/p#from
-//page /#id-:/p#from
-
-//ABXD LEGACY
-//page /forum/#id
-//page /forum/#id-:
-//page /forum.php
 
 function request($id, $from=0)
 {
@@ -116,9 +107,9 @@ function request($id, $from=0)
 	);
 
 	if(Permissions::canCreateThread($forum))
-		$actionlinks[] = array('url' => Url::format('/#-:/newthread', $forum['id'], $forum['title']), 'title' => __('Post thread'));
+		$actionlinks[] = array('url' => Url::format('/#-:/new', $forum['id'], $forum['title']), 'title' => __('Post thread'));
 	if(Session::isLoggedIn())
-		$actionlinks[] = array('title' => __('Mark as read'), 'ng' => 'doAction("/api/markasread", {fid: '.$fid.'})');
+		$actionlinks[] = array('title' => __('Mark as read'), 'ng' => 'ajax("/api/markasread", {fid: '.$fid.'})');
 
 	renderPage('forum.html', array(
 		'forum' => $forum, 

@@ -144,11 +144,11 @@ function postBoxCtrlFactory($scope, $sce, $timeout, ajax, $upload) {
 
 angular.module('app')
 
-.controller('NewReplyCtrl', function($scope, $sce, $timeout, ajax, $upload) {
+.controller('ThreadReplyCtrl', function($scope, $sce, $timeout, ajax, $upload) {
 	postBoxCtrlFactory($scope, $sce, $timeout, ajax, $upload);
 
 	$scope.postbox = {
-		submitApi: '/api/newreply',
+		submitApi: '/api/threadreply',
 		draftType: 0,
 		draftTarget: function() { return $scope.data.tid; }
 	};
@@ -162,11 +162,11 @@ angular.module('app')
 	};
 })
 
-.controller('NewThreadCtrl', function($scope, $sce, $timeout, ajax, $upload) {
+.controller('ThreadNewCtrl', function($scope, $sce, $timeout, ajax, $upload) {
 	postBoxCtrlFactory($scope, $sce, $timeout, ajax, $upload);
 
 	$scope.postbox = {
-		submitApi: '/api/newthread',
+		submitApi: '/api/threadnew',
 		draftType: 1,
 		draftTarget: function() { return $scope.data.fid; }
 	};
@@ -180,11 +180,11 @@ angular.module('app')
 	};
 })
 
-.controller('EditPostCtrl', function($scope, $sce, $timeout, ajax, $upload) {
+.controller('PostEditCtrl', function($scope, $sce, $timeout, ajax, $upload) {
 	postBoxCtrlFactory($scope, $sce, $timeout, ajax, $upload);
 
 	$scope.postbox = {
-		submitApi: '/api/editpost',
+		submitApi: '/api/postedit',
 		draftType: 2,
 		draftTarget: function() { return $scope.data.pid; }
 	};
@@ -192,11 +192,11 @@ angular.module('app')
 	$scope.postButtonText = 'Edit post';
 })
 
-.controller('NewPrivateCtrl', function($scope, $sce, $timeout, ajax, $upload) {
+.controller('PMNewCtrl', function($scope, $sce, $timeout, ajax, $upload) {
 	postBoxCtrlFactory($scope, $sce, $timeout, ajax, $upload);
 
 	$scope.postbox = {
-		submitApi: '/api/newprivate',
+		submitApi: '/api/pmnew',
 		draftType: 3,
 	};
 	$scope.postButtonText = 'Create conversation';
@@ -210,17 +210,17 @@ angular.module('app')
 })
 
 
-.controller('PrivateReplyCtrl', function($scope, $sce, $timeout, ajax, $upload) {
+.controller('PMReplyCtrl', function($scope, $sce, $timeout, ajax, $upload) {
 	postBoxCtrlFactory($scope, $sce, $timeout, ajax, $upload);
 
 	$scope.postbox = {
-		submitApi: '/api/privatereply',
+		submitApi: '/api/pmreply',
 		draftType: 4,
 		draftTarget: function() { return $scope.data.tid; }
 	};
 
 	$scope.quote = function(pid) {
-		ajax('/api/getprivatequote', {pid: pid}, $scope.add);
+		ajax('/api/pmquote', {pid: pid}, $scope.add);
 
 		$('html, body').animate({
 			scrollTop: $("#text").offset().top-60

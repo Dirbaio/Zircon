@@ -1,5 +1,4 @@
 <?php 
-//page /pm/post/#pid
 
 function request($pid)
 {

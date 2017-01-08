@@ -1,8 +1,4 @@
 <?php 
-//page /u/#uid-:/pm/#tid
-//page /u/#uid-:/pm/#tid/p#from
-//page /u/#uid-:/pm/#tid-:
-//page /u/#uid-:/pm/#tid-:/p#from
 
 function request($uid, $tid, $from=0)
 {

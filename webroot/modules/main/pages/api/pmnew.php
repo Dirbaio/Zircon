@@ -1,5 +1,4 @@
 <?php
-//page /api/newprivate
 
 function request($recipients, $title='', $text='')
 {

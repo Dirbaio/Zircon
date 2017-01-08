@@ -1,5 +1,4 @@
 <?php 
-//page /recalc
 
 function usectime()
 {

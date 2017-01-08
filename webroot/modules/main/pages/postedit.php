@@ -1,9 +1,4 @@
 <?php 
-//page /post/#pid/edit
-
-//ABXD LEGACY
-//page /editpost/#pid
-//page /editpost.php
 
 function request($pid)
 {
@@ -34,7 +29,7 @@ function request($pid)
 	);
 
 	//Render page
-	renderPage('editpost.html', array(
+	renderPage('postedit.html', array(
 		'draft' => $draft,
 		'breadcrumbs' => $breadcrumbs, 
 		'actionlinks' => $actionlinks,

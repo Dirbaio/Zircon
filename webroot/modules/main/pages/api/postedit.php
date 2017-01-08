@@ -1,5 +1,4 @@
 <?php
-//page /api/editpost
 
 function request($text='', $pid=0)
 {

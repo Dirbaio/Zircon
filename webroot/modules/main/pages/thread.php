@@ -1,18 +1,4 @@
 <?php 
-//page /#/#id
-//page /#/#id-:
-//page /#-:/#id
-//page /#-:/#id-:
-
-//page /#/#id/p#from
-//page /#/#id-:/p#from
-//page /#-:/#id/p#from
-//page /#-:/#id-:/p#from
-
-//ABXD LEGACY
-//page /thread/#id
-//page /thread/#id-:
-//page /thread.php
 
 function request($id, $from=0)
 {
@@ -56,7 +42,7 @@ function request($id, $from=0)
 			if(Permissions::canDeletePost($post, $thread, $forum))
 			{
 				//$links[] = array('title' => __('View'));
-				$links[] = array('title' => __('Undelete'), 'ng' => 'doAction("api/deletepost", {pid:'.$post['id'].', del:0})');
+				$links[] = array('title' => __('Undelete'), 'ng' => 'ajax("api/postdelete", {pid:'.$post['id'].', del:0})');
 			}
 		}
 		else
@@ -68,7 +54,7 @@ function request($id, $from=0)
 			if(Permissions::canEditPost($post, $thread, $forum))
 				$links[] = array('title' => __('Edit'), 'url' => Url::format('/post/#/edit', $post['id']));
 			if(Permissions::canDeletePost($post, $thread, $forum))
-				$links[] = array('title' => __('Delete'), 'ng' => 'deletePost('.$post['id'].', 1)');
+				$links[] = array('title' => __('Delete'), 'ng' => 'postDelete('.$post['id'].', 1)');
 		}
 
 		$post['links'] = $links;
@@ -122,18 +108,18 @@ function request($id, $from=0)
 
 	if(Permissions::canMod($forum)) {
 		if($thread['closed'])
-			$actionlinks[] = array('title' => __('Open'), 'ng' => 'doAction("/api/openthread", {tid: '.$tid.'})');
+			$actionlinks[] = array('title' => __('Open'), 'ng' => 'ajax("/api/threadopen", {tid: '.$tid.'})');
 		else
-			$actionlinks[] = array('title' => __('Close'), 'ng' => 'doAction("/api/closethread", {tid: '.$tid.'})');
+			$actionlinks[] = array('title' => __('Close'), 'ng' => 'ajax("/api/threadclose", {tid: '.$tid.'})');
 
 		if($thread['sticky'])
-			$actionlinks[] = array('title' => __('Unstick'), 'ng' => 'doAction("/api/unstickthread", {tid: '.$tid.'})');
+			$actionlinks[] = array('title' => __('Unstick'), 'ng' => 'ajax("/api/threadunstick", {tid: '.$tid.'})');
 		else
-			$actionlinks[] = array('title' => __('Stick'), 'ng' => 'doAction("/api/stickthread", {tid: '.$tid.'})');
+			$actionlinks[] = array('title' => __('Stick'), 'ng' => 'ajax("/api/threadstick", {tid: '.$tid.'})');
 	}
 
 	if(Permissions::canEditThread($thread, $forum))
-		$actionlinks[] = array('title' => __('Rename'), 'ng' => 'renameThread('.$tid.')');
+		$actionlinks[] = array('title' => __('Rename'), 'ng' => 'threadRename('.$tid.')');
 
 	//Render page
 	renderPage('thread.html', array(

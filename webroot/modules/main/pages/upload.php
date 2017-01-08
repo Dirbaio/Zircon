@@ -1,9 +1,4 @@
 <?php 
-//page /upload
-
-//ABXD LEGACY
-//page /uploader
-//page /uploader.php
 
 function request()
 {

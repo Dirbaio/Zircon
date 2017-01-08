@@ -1,5 +1,4 @@
 <?php
-//page /login
 
 function request()
 {

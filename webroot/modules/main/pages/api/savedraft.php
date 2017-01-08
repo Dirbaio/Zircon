@@ -1,5 +1,4 @@
 <?php
-//page /api/savedraft
 
 function request($type, $target, $data)
 {

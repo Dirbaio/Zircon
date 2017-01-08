@@ -1,5 +1,4 @@
 <?php 
-//page /u/#-:/pm/new
 
 function request()
 {
@@ -19,7 +18,7 @@ function request()
 	$actionlinks = array(
 	);
 
-	renderPage('newprivate.html', array(
+	renderPage('pmnew.html', array(
 		'draft' => $draft,
 
 		'breadcrumbs' => $breadcrumbs, 

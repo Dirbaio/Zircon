@@ -1,13 +1,4 @@
 <?php 
-//page /u/#id
-//page /u/#id-:
-//page /u/#id/p#from
-//page /u/#id-:/p#from
-
-//ABXD LEGACY
-//page /profile/#id
-//page /profile/#id-:
-//page /profile.php
 
 function getPowerlevelName($pl) {
 	$powerlevels = array(

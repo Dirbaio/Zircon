@@ -1,11 +1,4 @@
 <?php 
-//page /u/#id/edit
-//page /u/#id-:/edit
-
-//ABXD LEGACY
-//page /editprofile/#id
-//page /editprofile/#id-:
-//page /editprofile.php
 
 function request($id)
 {

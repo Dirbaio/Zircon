@@ -1,13 +1,4 @@
 <?php 
-//page /u/#id/threads
-//page /u/#id-:/threads
-//page /u/#id/threads/p#from
-//page /u/#id-:/threads/p#from
-
-//ABXD LEGACY
-//page /listthreads/#id
-//page /listthreads/#id-:
-//page /listthreads.php
 
 function request($id, $from=0)
 {

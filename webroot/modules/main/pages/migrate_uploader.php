@@ -1,5 +1,4 @@
 <?php 
-//page /migrate_uploader
 
 function request()
 {
