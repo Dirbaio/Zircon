@@ -56,7 +56,7 @@ class Template
 		}));
 		self::$twig->addFunction(new Twig_SimpleFunction('perf', function () {
 			global $startTime;
-			print(sprintf('%1.3f', (microtime(true)-$startTime)*1000) . " ms");
+			print(sprintf('%1.1f', (microtime(true)-$startTime)*1000) . " ms");
 		}));
 		self::$twig->addFunction(new Twig_SimpleFunction('queries', function () {
 			global $queryCount;
