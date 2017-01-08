@@ -8,7 +8,7 @@
 			</th>
 		</tr>
 		<tr class="cell1">
-			<td>
+			<td style="width: 150px">
 				Title
 			</td>
 			<td>
@@ -22,7 +22,7 @@
 		</tr>
 
 		<tr class="cell0">
-			<td>
+			<td style="width: 150px">
 			</td>
 			<td>
 				<label>
@@ -32,15 +32,15 @@
 			</td>
 		</tr>
 		<tr class="cell1" ng-if="data.poll" >
-			<td>
+			<td style="width: 150px">
 				Poll question
 			</td>
 			<td>
 				<input type="text" ng-model="data.pollquestion">
 			</td>
 		</tr>
-		<tr class="cell1" ng-if="data.poll">
-			<td>
+		<tr class="cell0" ng-if="data.poll">
+			<td style="width: 150px">
 				Poll choices
 			</td>
 			<td>
@@ -55,8 +55,8 @@
 				<button ng-click="data.pollchoices.push({text:''})">Add choice</button>
 			</td>
 		</tr>
-		<tr class="cell0" ng-if="data.poll">
-			<td>
+		<tr class="cell1" ng-if="data.poll">
+			<td style="width: 150px">
 			</td>
 			<td>
 				<label>
