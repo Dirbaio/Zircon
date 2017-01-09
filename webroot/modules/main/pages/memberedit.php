@@ -15,10 +15,10 @@ function request($id)
 
 	$actionlinks = array();
 
-	renderPage('member.html', array(
+	renderPage('memberedit.html', array(
 		'user' => $user,
 		'breadcrumbs' => $breadcrumbs, 
 		'actionlinks' => $actionlinks,
-		'title' => $forum['title'],
+		'title' => 'Edit profile',
 	));
 }

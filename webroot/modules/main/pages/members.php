@@ -14,6 +14,6 @@ function request()
 	renderPage('members.html', array(
 		'breadcrumbs' => $breadcrumbs, 
 		'actionlinks' => $actionlinks,
-		'title' => $forum['title'],
+		'title' => 'Members',
 	));
 }

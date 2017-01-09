@@ -23,7 +23,7 @@ function request()
 
 		'breadcrumbs' => $breadcrumbs, 
 		'actionlinks' => $actionlinks,
-		'title' => $forum['title'],
+		'title' => 'New PM',
 	));
 }
 

@@ -1,5 +1,5 @@
 	<base href="{{layout.base}}">
-	<title>{{layout.title}}</title>
+	<title>{% if title %}{{title}} - {% endif %}{{layout.title}}</title>
 	<meta http-equiv="Content-Type" content="text/html; CHARSET=utf-8" />
 	<meta name="description" content="{{layout.description}}" />
 	<meta name="keywords" content="{{layout.keyworkds}}" />

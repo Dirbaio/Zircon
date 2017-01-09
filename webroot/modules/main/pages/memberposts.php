@@ -55,6 +55,6 @@ function request($id, $from=0)
 		),
 		'breadcrumbs' => $breadcrumbs, 
 		'actionlinks' => $actionlinks,
-		'title' => $forum['title'],
+		'title' => $user['name'].'\'s posts',
 	));
 }

@@ -41,6 +41,7 @@ function request() {
 	renderPage('lastposts.html', array(
 		'breadcrumbs' => $breadcrumbs,
 		'actionlinks' => $actionlinks,
-		'posts' => $posts
+		'posts' => $posts,
+		'title' => 'Last posts',
 	));
 }

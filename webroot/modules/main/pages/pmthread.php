@@ -100,6 +100,6 @@ function request($uid, $tid, $from=0)
 
 		'breadcrumbs' => $breadcrumbs, 
 		'actionlinks' => $actionlinks,
-		'title' => 'Messages',
+		'title' => $thread['title'],
 	));
 }
