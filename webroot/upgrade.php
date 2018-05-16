@@ -8,7 +8,7 @@ require(__DIR__."/modules/main/lib/Sql.php");
 require(__DIR__."/modules/main/lib/SchemaUpdater.php");
 
 function fail($why) {
-	die($why);
+    die($why);
 }
 
 Sql::connect($config["mysql"]);

@@ -2,15 +2,15 @@
 
 function request()
 {
-	Url::setCanonicalUrl('/login');
+    Url::setCanonicalUrl('/login');
 
-	$breadcrumbs = array(
-		array('url' => '/login', 'title' => 'Log in'),
-	);
+    $breadcrumbs = array(
+        array('url' => '/login', 'title' => 'Log in'),
+    );
 
-	renderPage('login.html', array(
-		'breadcrumbs' => $breadcrumbs, 
-		'actionlinks' => array(),
-		'title' => 'Log in',
-	));
+    renderPage('login.html', array(
+        'breadcrumbs' => $breadcrumbs, 
+        'actionlinks' => array(),
+        'title' => 'Log in',
+    ));
 }

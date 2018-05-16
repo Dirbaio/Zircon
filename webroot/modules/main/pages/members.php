@@ -2,18 +2,18 @@
 
 function request()
 {
-	Url::setCanonicalUrl('/members');
+    Url::setCanonicalUrl('/members');
 
-	$breadcrumbs = array(
-		array('url' => Url::format('/members'), 'title' => __("Members")),
-	);
+    $breadcrumbs = array(
+        array('url' => Url::format('/members'), 'title' => __("Members")),
+    );
 
-	$actionlinks = array(
-	);
+    $actionlinks = array(
+    );
 
-	renderPage('members.html', array(
-		'breadcrumbs' => $breadcrumbs, 
-		'actionlinks' => $actionlinks,
-		'title' => 'Members',
-	));
+    renderPage('members.html', array(
+        'breadcrumbs' => $breadcrumbs, 
+        'actionlinks' => $actionlinks,
+        'title' => 'Members',
+    ));
 }

@@ -3,7 +3,7 @@
 angular.module('app')
 
 .factory('urlStyle', function() {
-	return function (path) {
-		return path;
-	};
+    return function (path) {
+        return path;
+    };
 })

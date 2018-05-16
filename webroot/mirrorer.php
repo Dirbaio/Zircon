@@ -41,14 +41,14 @@ $myhost = 'http://nsmbhd.net';
 function createFile($raw, $name) {
     global $botuserid, $dataDir, $myhost;
     
-	$id = Shake();
-	$hash = md5($raw);
+    $id = Shake();
+    $hash = md5($raw);
 
-	Query("insert into {files} (id, name, hash, date, user) values ({0}, {1}, {2}, {3}, {4})",
-		$id, $name, $hash, time(), $botuserid);
+    Query("insert into {files} (id, name, hash, date, user) values ({0}, {1}, {2}, {3}, {4})",
+        $id, $name, $hash, time(), $botuserid);
 
-	$dir = $dataDir."uploads/".substr($hash, 0, 2).'/';
-	@mkdir($dir);
+    $dir = $dataDir."uploads/".substr($hash, 0, 2).'/';
+    @mkdir($dir);
     $fp = fopen($dir.$hash, 'w');
     fwrite($fp, $raw);
     fclose($fp);
@@ -185,11 +185,11 @@ function cb($match) {
 }
 
 $posts = Query("SELECT
-    	p.*,
-    	pt.text, pt.revision
+        p.*,
+        pt.text, pt.revision
     FROM
-    	{posts} p
-    	LEFT JOIN {posts_text} pt ON pt.pid = p.id AND pt.revision = p.currentrevision
+        {posts} p
+        LEFT JOIN {posts_text} pt ON pt.pid = p.id AND pt.revision = p.currentrevision
     ORDER BY date ASC");
 
 while($post = fetch($posts)) {
@@ -202,14 +202,14 @@ while($post = fetch($posts)) {
     $new_text = preg_replace_callback('#(?<=\[url=)https?://[^\[\]\'">\n]*#', cb, $new_text);
 
     if($new_text != $post['text']) {
-		$now = time();
-		$rev = fetchResult("select max(revision) from {posts_text} where pid={0}", $pid);
-		$rev++;
-		$rPostsText = Query("insert into {posts_text} (pid,text,revision,user,date) values ({0}, {1}, {2}, {3}, {4})",
-							$pid, $new_text, $rev, $botuserid, $now);
+        $now = time();
+        $rev = fetchResult("select max(revision) from {posts_text} where pid={0}", $pid);
+        $rev++;
+        $rPostsText = Query("insert into {posts_text} (pid,text,revision,user,date) values ({0}, {1}, {2}, {3}, {4})",
+                            $pid, $new_text, $rev, $botuserid, $now);
 
-		$rPosts = Query("update {posts} set currentrevision = currentrevision + 1 where id={0} limit 1",
-						$pid);
+        $rPosts = Query("update {posts} set currentrevision = currentrevision + 1 where id={0} limit 1",
+                        $pid);
 
         print("POST EDITED -- see $myhost/post/$pid/\n");
     }

@@ -3,29 +3,29 @@
 class Util
 {
 
-	public static function randomString($length = 32)
-	{
-		$cstrong = false;
-	    $bytes = openssl_random_pseudo_bytes($length, $cstrong);
-	    
-	    if(!$cstrong)
-	    	fail("Crypto fail OMG WHY?!?");
-	    
-	    return bin2hex($bytes);
-	}
+    public static function randomString($length = 32)
+    {
+        $cstrong = false;
+        $bytes = openssl_random_pseudo_bytes($length, $cstrong);
+        
+        if(!$cstrong)
+            fail("Crypto fail OMG WHY?!?");
+        
+        return bin2hex($bytes);
+    }
 
-	public static function hash($lol)
-	{
-		return hash('sha256', $lol);
-	}
+    public static function hash($lol)
+    {
+        return hash('sha256', $lol);
+    }
 }
 
 
 function json($data)
 {
-	header('Content-Type: application/json');
-	echo json_encode($data);
-	die();
+    header('Content-Type: application/json');
+    echo json_encode($data);
+    die();
 }
 
 function startsWith($haystack, $needle)
@@ -46,5 +46,5 @@ function endsWith($haystack, $needle)
 
 function __($what)
 {
-	return $what;
+    return $what;
 }

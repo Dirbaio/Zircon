@@ -2,15 +2,15 @@
 
 function request()
 {
-	Url::setCanonicalUrl('/register');
+    Url::setCanonicalUrl('/register');
 
-	$breadcrumbs = array(
-		array('url' => '/register', 'title' => __('Register')),
-	);
+    $breadcrumbs = array(
+        array('url' => '/register', 'title' => __('Register')),
+    );
 
-	renderPage('register.html', array(
-		'breadcrumbs' => $breadcrumbs,
-		'actionlinks' => array(),
-		'title' => __('Register'),
-	));
+    renderPage('register.html', array(
+        'breadcrumbs' => $breadcrumbs,
+        'actionlinks' => array(),
+        'title' => __('Register'),
+    ));
 }

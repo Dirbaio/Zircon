@@ -2,18 +2,18 @@
 
 function request()
 {
-	Url::setCanonicalUrl('/upload');
+    Url::setCanonicalUrl('/upload');
 
-	$breadcrumbs = array(
-		array('url' => Url::format('/upload'), 'title' => __("UPLOAD MOAR STUFF")),
-	);
+    $breadcrumbs = array(
+        array('url' => Url::format('/upload'), 'title' => __("UPLOAD MOAR STUFF")),
+    );
 
-	$actionlinks = array(
-	);
+    $actionlinks = array(
+    );
 
-	renderPage('upload.html', array(
-		'breadcrumbs' => $breadcrumbs, 
-		'actionlinks' => $actionlinks,
-		'title' => 'UPLOAD MOAR STUFF',
-	));
+    renderPage('upload.html', array(
+        'breadcrumbs' => $breadcrumbs, 
+        'actionlinks' => $actionlinks,
+        'title' => 'UPLOAD MOAR STUFF',
+    ));
 }

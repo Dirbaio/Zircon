@@ -1,5 +1,5 @@
 td.fulllink {
-	overflow: hidden;
+    overflow: hidden;
 }
 td.fulllink a {
     display: block;
@@ -9,6 +9,6 @@ td.fulllink a {
 }
 
 .nolink {
-	font-weight: normal;
-	color: white!important;
+    font-weight: normal;
+    color: white!important;
 }

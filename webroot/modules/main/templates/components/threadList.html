@@ -2,9 +2,9 @@
 {% include 'components/threadHeader.html' %}
 
 {% for thread in threads %}
-	{% if thread.f %}
-		{% set forum = thread.f %}
-	{% endif %}
-	{% include 'components/threadItem.html' %}
+    {% if thread.f %}
+        {% set forum = thread.f %}
+    {% endif %}
+    {% include 'components/threadItem.html' %}
 {% endfor %}
 </table>

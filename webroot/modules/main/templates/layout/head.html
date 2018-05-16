@@ -1,10 +1,10 @@
-	<base href="{{layout.base}}">
-	<title>{% if title %}{{title}} - {% endif %}{{layout.title}}</title>
-	<meta http-equiv="Content-Type" content="text/html; CHARSET=utf-8" />
-	<meta name="description" content="{{layout.description}}" />
-	<meta name="keywords" content="{{layout.keyworkds}}" />
-	<meta name="csrftoken" content="{{layout.csrftoken}}" />
-	<link rel="shortcut icon" type="image/x-icon" href="{{layout.favicon}}" />
+    <base href="{{layout.base}}">
+    <title>{% if title %}{{title}} - {% endif %}{{layout.title}}</title>
+    <meta http-equiv="Content-Type" content="text/html; CHARSET=utf-8" />
+    <meta name="description" content="{{layout.description}}" />
+    <meta name="keywords" content="{{layout.keyworkds}}" />
+    <meta name="csrftoken" content="{{layout.csrftoken}}" />
+    <link rel="shortcut icon" type="image/x-icon" href="{{layout.favicon}}" />
 {% for file in layout.css %}
-	<link rel="stylesheet" type="text/css" href="{{file}}" />
+    <link rel="stylesheet" type="text/css" href="{{file}}" />
 {% endfor %}

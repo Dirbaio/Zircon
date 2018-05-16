@@ -2,16 +2,16 @@
 
 function request()
 {
-	$breadcrumbs = array(
-	);
+    $breadcrumbs = array(
+    );
 
-	$actionlinks = array(
-	);
+    $actionlinks = array(
+    );
 
-	renderPage('404.html', array(
-		'breadcrumbs' => $breadcrumbs, 
-		'actionlinks' => $actionlinks,
-		'title' => '404 Not Found',
-	));
+    renderPage('404.html', array(
+        'breadcrumbs' => $breadcrumbs, 
+        'actionlinks' => $actionlinks,
+        'title' => '404 Not Found',
+    ));
 }
 

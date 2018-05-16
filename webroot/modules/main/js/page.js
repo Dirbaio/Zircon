@@ -3,46 +3,46 @@
 angular.module('app')
 
 .controller('PageCtrl', function($scope, $window, ajax) {
-	$scope.ajax = ajax;
-	
-	function setCookie(sKey, sValue, vEnd, sPath, sDomain, bSecure) {  
-		if (!sKey || /^(?:expires|max\-age|path|domain|secure)$/.test(sKey)) { return; }  
-		var sExpires = "";  
-		if (vEnd) {
-			switch (typeof vEnd) {  
-				case "number": sExpires = "; max-age=" + vEnd; break;  
-				case "string": sExpires = "; expires=" + vEnd; break;  
-				case "object": if (vEnd.hasOwnProperty("toGMTString")) { sExpires = "; expires=" + vEnd.toGMTString(); } break;  
-			}  
-		}  
-		var lol = escape(sKey) + "=" + escape(sValue) + sExpires + (sDomain ? "; domain=" + sDomain : "") + (sPath ? "; path=" + sPath : "") + (bSecure ? "; secure" : "");
-		document.cookie = lol;
-	};
+    $scope.ajax = ajax;
+    
+    function setCookie(sKey, sValue, vEnd, sPath, sDomain, bSecure) {  
+        if (!sKey || /^(?:expires|max\-age|path|domain|secure)$/.test(sKey)) { return; }  
+        var sExpires = "";  
+        if (vEnd) {
+            switch (typeof vEnd) {  
+                case "number": sExpires = "; max-age=" + vEnd; break;  
+                case "string": sExpires = "; expires=" + vEnd; break;  
+                case "object": if (vEnd.hasOwnProperty("toGMTString")) { sExpires = "; expires=" + vEnd.toGMTString(); } break;  
+            }  
+        }  
+        var lol = escape(sKey) + "=" + escape(sValue) + sExpires + (sDomain ? "; domain=" + sDomain : "") + (sPath ? "; path=" + sPath : "") + (bSecure ? "; secure" : "");
+        document.cookie = lol;
+    };
 
-	$scope.toggleMobileLayout = function(enabled) {
-		setCookie("mobileversion", enabled, 20*365*24*60*60, "/");
-		$window.location.reload();
-	};
+    $scope.toggleMobileLayout = function(enabled) {
+        setCookie("mobileversion", enabled, 20*365*24*60*60, "/");
+        $window.location.reload();
+    };
 
-	$scope.postDelete = function(pid) {
-		var reason = prompt("Enter a reason for deletion:");
-		
-		if(reason === null)
-			return;
+    $scope.postDelete = function(pid) {
+        var reason = prompt("Enter a reason for deletion:");
+        
+        if(reason === null)
+            return;
 
-		ajax('/api/postdelete', {pid: pid, del:1, reason:reason});
-	};
+        ajax('/api/postdelete', {pid: pid, del:1, reason:reason});
+    };
 
-	$scope.threadRename = function(tid) {
-		var name = prompt("Enter new thread name");
-		
-		if(name === null)
-			return;
+    $scope.threadRename = function(tid) {
+        var name = prompt("Enter new thread name");
+        
+        if(name === null)
+            return;
 
-		ajax('/api/threadrename', {tid: tid, name: name});
-	};
+        ajax('/api/threadrename', {tid: tid, name: name});
+    };
 
-	$scope.logout = function(tid) {
-		ajax('/api/logout', {});
-	};
+    $scope.logout = function(tid) {
+        ajax('/api/logout', {});
+    };
 })

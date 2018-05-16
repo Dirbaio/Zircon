@@ -2,7 +2,7 @@
 
 function request()
 {
-	Session::end();
+    Session::end();
     json(Url::format('/'));
 }
 
