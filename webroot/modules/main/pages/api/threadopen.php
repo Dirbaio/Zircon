@@ -14,5 +14,5 @@ function request($tid)
     
     Sql::query('UPDATE {threads} SET closed=0 WHERE id=?', $tid);
 
-    json(Url::format('/#-:/#-:', $fid, $forum['title'], $tid, $thread['title']));
+    jsonRedirect(Url::format('/#-:/#-:', $fid, $forum['title'], $tid, $thread['title']));
 }

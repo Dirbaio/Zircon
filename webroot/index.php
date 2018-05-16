@@ -8,8 +8,25 @@ $queryCount = 0;
 
 error_reporting(E_ALL ^ E_NOTICE | E_STRICT);
 
+
+class FailException extends Exception
+{
+    // Redefine the exception so message isn't optional
+    public function __construct($message, $code = 0, Exception $previous = null) {
+        // some code
+
+        // make sure everything is assigned properly
+        parent::__construct($message, $code, $previous);
+    }
+
+    // custom string representation of object
+    public function __toString() {
+        return __CLASS__ . ": [{$this->code}]: {$this->message}\n";
+    }
+}
+
 function fail($why) {
-    throw new Exception($why);
+    throw new FailException($why);
 }
 
 function my_error_handler()
@@ -50,7 +67,7 @@ function getPages()
         }
         $totalUrls = array_merge($totalUrls, $urls);
     }
-    
+
     return $totalUrls;
 }
 
@@ -65,7 +82,7 @@ function getBase() {
 function renderPage($template, $vars)
 {
     global $config;
-    
+
     $navigation = array(
         array('url' => Url::format('/'), 'title' => __('Main')),
         array('url' => Url::format('/members'), 'title' => __('Members')),
@@ -81,15 +98,15 @@ function renderPage($template, $vars)
         $userpanel = array(
             array('user' => $user),
             array('url' => Url::format('/u/#-:/edit', $user['id'], $user['name']), 'title' => __('Edit profile')),
-            array('url' => Url::format('/u/#-:/pm', $user['id'], $user['name']), 'title' => __('Messages')),
-            array('ng' => "logout()", 'title' => __('Log out')),
+            array('url' => Url::format('/u/#-:/messages', $user['id'], $user['name']), 'title' => __('Messages')),
+            array('js' => "logout()", 'title' => __('Log out')),
         );
     else
         $userpanel = array(
             array('url' => Url::format('/register'), 'title' => __('Register')),
             array('url' => Url::format('/login'), 'title' => __('Log in')),
         );
- 
+
      $onlineFid = 0;
      if(isset($vars['forum']))
          $onlineFid = $vars['forum']['id'];
@@ -125,7 +142,7 @@ function renderPage($template, $vars)
     if(!isset($vars['actionlinks']) || !is_array($vars['actionlinks']))
         throw new Exception('actionlinks not found in vars, must be there and be an array');
 
-    array_unshift($vars['breadcrumbs'], 
+    array_unshift($vars['breadcrumbs'],
         array('url' => Url::format('/'), 'title' => __('Main')));
 
     Template::render('layout/main.html', $vars);
@@ -140,8 +157,9 @@ function matchPage($method, $path) {
     {
         //match $path against $page
         $names = array();
-        $pattern = preg_replace_callback('/(:|#|\$)([a-zA-Z][a-zA-Z0-9]*|)/', 
-            function($matches) use (&$names) {
+        $makenumber = array();
+        $pattern = preg_replace_callback('/(:|#|\$)([a-zA-Z][a-zA-Z0-9]*|)/',
+            function($matches) use (&$names, &$makenumber) {
                 if($matches[1] == '#')
                     $regex = '-?[0-9]+';
                 else if($matches[1] == '$')
@@ -151,6 +169,7 @@ function matchPage($method, $path) {
                 if($matches[2]) {
                     $name = $matches[2];
                     $names[] = $name;
+                    $makenumber[$name] = $matches[1] == '#';
                     return '(?P<'.$name.'>'.$regex.')';
                 }
                 else
@@ -158,11 +177,13 @@ function matchPage($method, $path) {
             },
             $page
         );
-
         if (preg_match('#^' . $pattern . '$#', $path, $matches)) {
             $input = array();
-            foreach($names as $name)
+            foreach($names as $name) {
                 $input[$name] = $matches[$name];
+                if($makenumber[$name])
+                    $input[$name] = (int) $input[$name];
+            }
             return [$pagefile, $input];
         }
     }
@@ -183,13 +204,13 @@ function cleanUpPath($path) {
 function run() {
     $path = UrlStyle::getPath();
     $path = cleanUpPath($path);
-        
+
     $match = matchPage($_SERVER['REQUEST_METHOD'], $path);
     if($match) {
         $pagefile = $match[0];
         $pageparams = $match[1];
 
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') 
+        if ($_SERVER['REQUEST_METHOD'] === 'POST')
         {
             $input = json_decode(file_get_contents('php://input'), true);
             if(!is_array($input) || json_last_error() !== JSON_ERROR_NONE)
@@ -198,7 +219,7 @@ function run() {
         }
         else
             $input = $_GET;
-            
+
         $input = array_merge($input, $pageparams);
         $input['input'] = $input;
     } else {
@@ -213,7 +234,7 @@ function run() {
     //Calculate parameters
     $params = array();
     $refFunc = new ReflectionFunction('request');
-    foreach($refFunc->getParameters() as $param) 
+    foreach($refFunc->getParameters() as $param)
     {
         if(isset($input[$param->name]))
             $params[] = $input[$param->name];
@@ -227,4 +248,12 @@ function run() {
     call_user_func_array('request', $params);
 }
 
-run();
+try {
+    run();
+}
+catch(FailException $e) {
+    http_response_code(400);
+    json(array(
+        "message" => $e->getMessage(),
+    ));
+}

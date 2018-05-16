@@ -20,5 +20,5 @@ function request($pid=0, $del=0, $reason='')
         Sql::query('UPDATE {posts} SET deleted=0 WHERE id=?',
             $pid);
 
-    json(Url::format('/post/#', $pid));
+    jsonRedirect(Url::format('/post/#', $pid));
 }

@@ -7,10 +7,10 @@ class Util
     {
         $cstrong = false;
         $bytes = openssl_random_pseudo_bytes($length, $cstrong);
-        
+
         if(!$cstrong)
             fail("Crypto fail OMG WHY?!?");
-        
+
         return bin2hex($bytes);
     }
 
@@ -26,6 +26,13 @@ function json($data)
     header('Content-Type: application/json');
     echo json_encode($data);
     die();
+}
+
+function jsonRedirect($url)
+{
+    json(array(
+        'redirect' => $url,
+    ));
 }
 
 function startsWith($haystack, $needle)

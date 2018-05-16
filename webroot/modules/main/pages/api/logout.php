@@ -3,6 +3,6 @@
 function request()
 {
     Session::end();
-    json(Url::format('/'));
+    jsonRedirect(Url::format('/'));
 }
 

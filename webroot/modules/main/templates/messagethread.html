@@ -1,0 +1,10 @@
+Participants:
+{% for p in participants %} {{ userlink(p) }} {% endfor %}
+
+{% include 'components/postList.html' %}
+
+
+{% if canreply %}
+    {% include 'layout/pagelinks.html' %}
+    <div data-component="messagereply" data-props="{{props | json_encode()}}"></div>
+{% endif %}

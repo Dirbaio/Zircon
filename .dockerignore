@@ -1,4 +1,4 @@
+zircon
 data
-Dockerfile
-d
-.dockerignore
+node_modules
+.git

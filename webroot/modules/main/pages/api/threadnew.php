@@ -13,14 +13,14 @@ function request($fid, $title='', $text='', $poll=false, $pollquestion='', $poll
     Validate::notEmpty($title, __('Your thread is unnamed. Enter a thread title and try again.'));
 
     $lastPost = time() - Session::get('lastpostdate');
-    if($lastPost < 10)//Settings::get('floodProtectionInterval'))
+    if($lastPost < 10)
     {
         //Check for last post the user posted.
         $lastPost = Sql::querySingle('SELECT * FROM {posts} WHERE user=? ORDER BY date DESC LIMIT 1', Session::id());
 
         //If it looks similar to this one, assume the user has double-clicked the button.
         //if($lastPost['thread'] == $tid)
-        //    json(Url::format('/post/#', $lastPost['id']));
+        //    jsonRedirect(Url::format('/post/#', $lastPost['id']));
 
         fail(__('You\'re going too damn fast! Slow down a little.'));
     }
@@ -36,7 +36,7 @@ function request($fid, $title='', $text='', $poll=false, $pollquestion='', $poll
     $now = time();
 
     // Create the poll if needed.
-    if($poll) 
+    if($poll)
     {
         $polldoublevote = $polldoublevote ? 1 : 0;
 
@@ -69,7 +69,7 @@ function request($fid, $title='', $text='', $poll=false, $pollquestion='', $poll
     $pid = Sql::insertId();
     Sql::query('UPDATE {threads} SET lastpostid=? where id=?', $pid, $tid);
 
-    Sql::Query('INSERT INTO {posts_text} (pid,text,revision,user,date) VALUES (?,?,?,?,?)', 
+    Sql::Query('INSERT INTO {posts_text} (pid,text,revision,user,date) VALUES (?,?,?,?,?)',
         $pid, $text, 0, Session::id(), $now);
 
     //Update counters
@@ -85,5 +85,5 @@ function request($fid, $title='', $text='', $poll=false, $pollquestion='', $poll
     //Erase the draft
     Sql::query('DELETE FROM {drafts} WHERE user=? AND type=? AND target=?', Session::id(), 1, $fid);
 
-    json(Url::format('/#-#/#-#', $forum['id'], $forum['title'], $tid, $title));
+    jsonRedirect(Url::format('/#-#/#-#', $forum['id'], $forum['title'], $tid, $title));
 }

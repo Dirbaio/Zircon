@@ -22,7 +22,7 @@ function request($text='', $tid=0)
 
         //If it looks similar to this one, assume the user has double-clicked the button.
         if($lastPost["thread"] == $tid)
-            json(Url::format('/post/#', $lastPost['id']));
+            jsonRedirect(Url::format('/post/#', $lastPost['id']));
 
         fail(__("You're going too damn fast! Slow down a little."));
     }
@@ -52,5 +52,5 @@ function request($text='', $tid=0)
 
 //    logAction('newreply', array('forum' => $fid, 'thread' => $tid, 'post' => $pid));
 
-    json(Url::format('/post/#', $pid));
+    jsonRedirect(Url::format('/post/#', $pid));
 }

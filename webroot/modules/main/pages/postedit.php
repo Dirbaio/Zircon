@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 function request($pid)
 {
@@ -7,16 +7,14 @@ function request($pid)
     $thread = Fetch::thread($tid);
     $fid = $thread['forum'];
     $forum = Fetch::forum($fid);
-    
+
     Permissions::assertCanViewForum($forum);
     Permissions::assertCanEditPost($post, $thread, $forum);
-    
+
     // Retrieve the draft. Fill it with the post text if none.
     $draft = Fetch::draft(2, $pid);
     if(!$draft['text'])
         $draft['text'] = $post['text'];
-    
-    $draft['pid'] = $pid;
 
     //Layout stuff
     $breadcrumbs = array(
@@ -29,9 +27,14 @@ function request($pid)
     );
 
     //Render page
-    renderPage('postedit.html', array(
-        'draft' => $draft,
-        'breadcrumbs' => $breadcrumbs, 
+    renderPage('component.html', array(
+        'component' => 'postedit',
+        'props' => array(
+            'draftType' => 2,
+            'draftTarget' => $pid,
+            'draft' => $draft,
+        ),
+        'breadcrumbs' => $breadcrumbs,
         'actionlinks' => $actionlinks,
         'title' => __('Edit post'),
     ));

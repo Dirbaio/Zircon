@@ -13,5 +13,5 @@ function request($text='', $id=0)
 
     Sql::query("insert into {usercomments} (uid, cid, date, text) values (?,?,?,?)", $user['id'], Session::get('id'), time(), $text);
 
-    json('ok');
+    jsonRedirect(Url::format('/u/#-:', $user['id'], $user['name']));
 }

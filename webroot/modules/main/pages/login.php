@@ -8,8 +8,9 @@ function request()
         array('url' => '/login', 'title' => 'Log in'),
     );
 
-    renderPage('login.html', array(
-        'breadcrumbs' => $breadcrumbs, 
+    renderPage('component.html', array(
+        'component' => 'login',
+        'breadcrumbs' => $breadcrumbs,
         'actionlinks' => array(),
         'title' => 'Log in',
     ));

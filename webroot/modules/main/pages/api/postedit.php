@@ -41,5 +41,5 @@ function request($text='', $pid=0)
     // Erase the draft
     Sql::query('DELETE FROM {drafts} WHERE user=? AND type=? AND target=?', Session::id(), 2, $pid);
 
-    json(Url::format('/post/#', $pid));
+    jsonRedirect(Url::format('/post/#', $pid));
 }

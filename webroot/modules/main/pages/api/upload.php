@@ -38,5 +38,5 @@ function request()
     if(!is_file($destfile))
         copy($file['tmp_name'], $destfile);
 
-    json(Url::format('/file/:/$', $id, $file['name']));
+    jsonRedirect(Url::format('/file/:/$', $id, $file['name']));
 }

@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 function request($id)
 {
@@ -12,8 +12,6 @@ function request($id)
 
     // Retrieve the draft.
     $draft = Fetch::draft(1, $fid);
-    $draft['fid'] = $fid;
-
 
     $breadcrumbs = array(
         array('url' => Url::format('/#-:', $forum['id'], $forum['title']), 'title' => $forum['title']),
@@ -23,13 +21,18 @@ function request($id)
     $actionlinks = array(
     );
 
-    renderPage('threadnew.html', array(
-        'forum' => $forum, 
-        'draft' => $draft,
+    renderPage('component.html', array(
+        'component' => 'threadnew',
+        'props' => array(
+            'draftType' => 1,
+            'draftTarget' => $fid,
+            'draft' => $draft,
+        ),
 
-        'breadcrumbs' => $breadcrumbs, 
+        'forum' => $forum,
+
+        'breadcrumbs' => $breadcrumbs,
         'actionlinks' => $actionlinks,
         'title' => 'New thread',
     ));
 }
-

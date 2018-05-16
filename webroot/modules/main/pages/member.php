@@ -42,7 +42,7 @@ function request($id, $from=0)
     if(Permissions::canEditUser($user))
         $actionlinks[] = array('url' => Url::format('/u/#-:/edit', $user['id'], $user['name']), 'title' => __('Edit profile'));
     if($user['id'] == Session::id() || Permissions::canSnoopMessages())
-        $actionlinks[] = array('url' => Url::format('/u/#-:/pm', $user['id'], $user['name']), 'title' => __('Messages'));
+        $actionlinks[] = array('url' => Url::format('/u/#-:/messages', $user['id'], $user['name']), 'title' => __('Messages'));
 
     $actionlinks[] = array('url' => Url::format('/u/#-:/threads', $user['id'], $user['name']), 'title' => __('Threads'));
     $actionlinks[] = array('url' => Url::format('/u/#-:/posts', $user['id'], $user['name']), 'title' => __('Posts'));

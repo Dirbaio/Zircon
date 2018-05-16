@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 function request($id, $from=0)
 {
@@ -60,7 +60,7 @@ function request($id, $from=0)
         $post['links'] = $links;
     }
 
-    //WTF PHP 
+    //WTF PHP
     unset($post);
 
 
@@ -95,7 +95,6 @@ function request($id, $from=0)
 
     // Retrieve the draft.
     $draft = Fetch::draft(0, $tid);
-    $draft['tid'] = $tid;
 
     //Layout stuff
     $breadcrumbs = array(
@@ -123,11 +122,16 @@ function request($id, $from=0)
 
     //Render page
     renderPage('thread.html', array(
-        'forum' => $forum, 
-        'thread' => $thread, 
-        'posts' => $posts, 
-        'poll' => $poll, 
-        'draft' => $draft,
+        'props' => array(
+            'draftType' => 0,
+            'draftTarget' => $tid,
+            'draft' => $draft,
+        ),
+
+        'forum' => $forum,
+        'thread' => $thread,
+        'posts' => $posts,
+        'poll' => $poll,
         'canreply' => Permissions::canReply($thread, $forum),
         'paging' => array(
             'perpage' => $ppp,
@@ -135,10 +139,9 @@ function request($id, $from=0)
             'total' => $thread['replies'] + 1, //+1 for the OP
             'base' => Url::format('/#-:/#-:', $forum['id'], $forum['title'], $thread['id'], $thread['title']),
         ),
-        'breadcrumbs' => $breadcrumbs, 
+        'breadcrumbs' => $breadcrumbs,
         'actionlinks' => $actionlinks,
         'title' => $thread['title'],
     ));
 
 }
-

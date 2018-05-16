@@ -15,5 +15,5 @@ function request($fid=0)
             SELECT ?, t.id, ? FROM {threads} t',
             Session::id(), time());
 
-    json(Url::format('/'));
+    jsonRedirect(Url::format('/'));
 }

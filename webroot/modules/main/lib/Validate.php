@@ -4,7 +4,7 @@ class Validate
 {
     public static function color(&$string)
     {
-        if(!preg_match('/^#[a-f0-9]{3-6}$/i', $string))
+        if(!preg_match('/^#[a-f0-9]{3,6}$/i', $string))
             $string = '';
     }
 

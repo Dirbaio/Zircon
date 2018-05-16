@@ -44,7 +44,7 @@
         <td class="cell1">
             {%- if user.lastpostid -%}
                 {{ user.lastpostdate | date }}<br>
-                in 
+                in
                 {%- if user.lastpostrestricted -%}
                     a restricted forum.
                 {%- else %}
@@ -99,11 +99,10 @@
     <tr class="header0">
         <th colspan="2">TrollBox&trade;</th>
     </tr>
-    
-    <tr ng-controller="UserCommentsCtrl" ng-init="uid={{user.id}}">
+
+    <tr>
         <td class="cell0" colspan="2">
-            <input type="text" ng-model="text" style="width: 80%;" maxlength="255" />
-            <button ng-click="post()">Post</button>
+            <div data-component="trollbox" data-uid="{{user.id}}"></div>
         </td>
     </tr>
     {% if commentspaging %}

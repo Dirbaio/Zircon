@@ -21,5 +21,5 @@ function request($username='', $pass='', $pass2='', $email='')
     $uid = Sql::insertId();
     Session::start($uid);
 
-    json(Url::format('/'));
+    jsonRedirect(Url::format('/'));
 }

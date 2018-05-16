@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 $urls = array(
     # Main board stuff
@@ -42,19 +42,19 @@ $urls = array(
     'GET /u/#id(-:)?/posts(/p#from)?' => 'memberposts',
     'GET /u/#id(-:)?/threads(/p#from)?' => 'memberthreads',
     'POST /api/membercomment' => 'api/membercomment',
-    
+
     # PM stuff
-    'GET /u/#(-:)?/pm/new' => 'pmnew',
-    'GET /pm/post/#pid' => 'pmpost',
-    'GET /u/#uid(-:)?/pm/#tid(-:)?(/p#from)?' => 'pmthread',
-    'GET /u/#id(-:)?/pm?(/p#from)?' => 'pmthreads',
-    'POST /api/pmnew' => 'api/pmnew',
-    'POST /api/pmreply' => 'api/pmreply',
-    'POST /api/pmquote' => 'api/pmquote',
+    'GET /u/#(-:)?/messages/new' => 'messagenew',
+    'GET /message/#pid' => 'message',
+    'GET /u/#uid(-:)?/messages/#tid(-:)?(/p#from)?' => 'messagethread',
+    'GET /u/#id(-:)?/messages(/p#from)?' => 'messages',
+    'POST /api/messagenew' => 'api/messagenew',
+    'POST /api/messagereply' => 'api/messagereply',
+    'POST /api/messagequote' => 'api/messagequote',
 
     # Misc stuff
     'GET /lastposts' => 'lastposts',
-    
+
     # Session stuff
     'GET /login' => 'login',
     'POST /api/login' => 'api/login',
@@ -75,5 +75,5 @@ $urls = array(
     'GET /uploader' => 'upload',
     'GET /uploader.php' => 'upload',
     'POST /api/upload' => 'api/upload',
-    
+
 );

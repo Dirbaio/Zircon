@@ -12,5 +12,5 @@ function request($username='', $password='') {
         fail("Wrong username or password");
 
     Session::start($user["id"]);
-    json(Url::format('/'));
+    jsonRedirect(Url::format('/'));
 }
