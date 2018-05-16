@@ -29,4 +29,3 @@ $(function() {
     view.bind("scroll resize", doScroll);
     doScroll();
 });
- 

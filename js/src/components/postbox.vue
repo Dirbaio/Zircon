@@ -50,13 +50,15 @@
                         </div>
                     </div>
 
-                    <textarea
-                        ref="text"
-                        id="text"
-                        rows="5"
-                        style="width: 100%; box-sizing: border-box; resize: none;"
-                        v-model="draft.text"
-                    ></textarea>
+                    <div ref="textHold">
+                        <textarea
+                            ref="text"
+                            id="text"
+                            rows="5"
+                            style="width: 100%; box-sizing: border-box; resize: none; overflow-y: hidden;"
+                            v-model="draft.text"
+                        ></textarea>
+                    </div>
                 </td>
             </tr>
             <tr class="cell2">
@@ -125,8 +127,29 @@ export default {
             }
             this.dirty = true;
         }, { deep: true });
+
+
+        this.$watch('draft.text', () => {
+            this.resize();
+        });
+        setTimeout(() => {
+            this.resize();
+        }, 0);
+
+        window.quote = (pid) => {
+            api('/getquote', { pid }).then((stuff) => {
+                this.add(stuff);
+            });
+        };
     },
     methods: {
+        resize() {
+            this.$refs.textHold.style.height = this.$refs.text.style.height;
+            this.$refs.text.style.height = 'auto';
+            console.log(this.$refs.text.scrollHeight);
+            this.$refs.text.style.height = `${this.$refs.text.scrollHeight}px`;
+            this.$refs.textHold.style.height = '';
+        },
         preview() {
             api('/preview', {
                 text: this.draft.text,

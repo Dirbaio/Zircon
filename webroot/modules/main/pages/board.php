@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 function request()
 {
@@ -6,7 +6,7 @@ function request()
 
     if(Session::isLoggedIn())
         $forums = Sql::queryAll(
-            'SELECT 
+            'SELECT
                 f.*,
                 lu.(_userfields),
                 (
@@ -21,7 +21,7 @@ function request()
             Session::id());
     else
         $forums = Sql::queryAll(
-            'SELECT 
+            'SELECT
                 f.*,
                 lu.(_userfields),
                 0 as numnew
@@ -55,13 +55,12 @@ function request()
     );
 
     if(Session::isLoggedIn())
-        $actionlinks[] = array('title' => __('Mark all as read'), 'ng' => 'doAction("/api/markasread", {fid: 0})');
+        $actionlinks[] = array('title' => __('Mark all as read'), 'js' => 'markasread(0)');
 
     renderPage('components/forumList.html', array(
         'categories' => $categories,
-        'breadcrumbs' => $breadcrumbs, 
+        'breadcrumbs' => $breadcrumbs,
         'actionlinks' => $actionlinks,
         'title' => '',
     ));
 }
-

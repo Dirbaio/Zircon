@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 function request($id, $from=0)
 {
@@ -36,8 +36,8 @@ function request($id, $from=0)
                 LEFT JOIN {users} su ON su.id=t.user
                 LEFT JOIN {users} lu ON lu.id=t.lastpostuser
             WHERE forum=?
-            ORDER BY sticky DESC, lastpostdate DESC 
-            LIMIT ?, ?', 
+            ORDER BY sticky DESC, lastpostdate DESC
+            LIMIT ?, ?',
             Session::id(), $fid, $from, $tpp);
     else
         $threads = Sql::queryAll(
@@ -51,8 +51,8 @@ function request($id, $from=0)
                 LEFT JOIN {users} su ON su.id=t.user
                 LEFT JOIN {users} lu ON lu.id=t.lastpostuser
             WHERE forum=?
-            ORDER BY sticky DESC, lastpostdate DESC 
-            LIMIT ?, ?', 
+            ORDER BY sticky DESC, lastpostdate DESC
+            LIMIT ?, ?',
             $fid, $from, $tpp);
 
 
@@ -61,7 +61,7 @@ function request($id, $from=0)
 
     if(Session::isLoggedIn())
         $forums = Sql::queryAll(
-            'SELECT 
+            'SELECT
                 f.*,
                 lu.(_userfields),
                 (
@@ -76,7 +76,7 @@ function request($id, $from=0)
             Session::id());
     else
         $forums = Sql::queryAll(
-            'SELECT 
+            'SELECT
                 f.*,
                 lu.(_userfields),
                 0 as numnew
@@ -109,20 +109,20 @@ function request($id, $from=0)
     if(Permissions::canCreateThread($forum))
         $actionlinks[] = array('url' => Url::format('/#-:/new', $forum['id'], $forum['title']), 'title' => __('Post thread'));
     if(Session::isLoggedIn())
-        $actionlinks[] = array('title' => __('Mark as read'), 'ng' => 'ajax("/api/markasread", {fid: '.$fid.'})');
+        $actionlinks[] = array('title' => __('Mark as read'), 'js' => 'markasread('.$fid.')');
 
     renderPage('forum.html', array(
-        'forum' => $forum, 
-        'threads' => $threads, 
-        'categories' => $categories, 
-        'hotcount' => 30, 
+        'forum' => $forum,
+        'threads' => $threads,
+        'categories' => $categories,
+        'hotcount' => 30,
         'paging' => array(
             'perpage' => $tpp,
             'from' => $from,
             'total' => $forum['numthreads'],
             'base' => Url::format('/#-:', $forum['id'], $forum['title']),
         ),
-        'breadcrumbs' => $breadcrumbs, 
+        'breadcrumbs' => $breadcrumbs,
         'actionlinks' => $actionlinks,
         'title' => $forum['title'],
     ));

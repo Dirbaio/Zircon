@@ -58,6 +58,7 @@ export default {
     },
     created() {
         const defaults = {
+            text: '',
             recipients: ['a', 'b', 'c'],
         };
         for(const k of Object.keys(defaults)) {

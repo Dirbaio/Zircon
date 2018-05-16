@@ -95,6 +95,7 @@ export default {
     },
     created() {
         const defaults = {
+            text: '',
             title: '',
             poll: false,
             pollquestion: '',

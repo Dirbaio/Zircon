@@ -42,7 +42,7 @@ function request($id, $from=0)
             if(Permissions::canDeletePost($post, $thread, $forum))
             {
                 //$links[] = array('title' => __('View'));
-                $links[] = array('title' => __('Undelete'), 'ng' => 'ajax("api/postdelete", {pid:'.$post['id'].', del:0})');
+                $links[] = array('title' => __('Undelete'), 'js' => 'api("/postdelete", {pid:'.$post['id'].', del:0})');
             }
         }
         else
@@ -50,11 +50,11 @@ function request($id, $from=0)
             $links[] = array('url' => Url::format('/post/#', $post['id']), 'title' => __('Link'));
 
             if(Permissions::canReply($thread, $forum))
-                $links[] = array('title' => __('Quote'), 'ng' => 'quote('.$post['id'].')');
+                $links[] = array('title' => __('Quote'), 'js' => 'quote('.$post['id'].')');
             if(Permissions::canEditPost($post, $thread, $forum))
                 $links[] = array('title' => __('Edit'), 'url' => Url::format('/post/#/edit', $post['id']));
             if(Permissions::canDeletePost($post, $thread, $forum))
-                $links[] = array('title' => __('Delete'), 'ng' => 'postDelete('.$post['id'].', 1)');
+                $links[] = array('title' => __('Delete'), 'js' => 'postDelete('.$post['id'].', 1)');
         }
 
         $post['links'] = $links;
@@ -107,18 +107,18 @@ function request($id, $from=0)
 
     if(Permissions::canMod($forum)) {
         if($thread['closed'])
-            $actionlinks[] = array('title' => __('Open'), 'ng' => 'ajax("/api/threadopen", {tid: '.$tid.'})');
+            $actionlinks[] = array('title' => __('Open'), 'js' => 'api("/threadopen", {tid: '.$tid.'})');
         else
-            $actionlinks[] = array('title' => __('Close'), 'ng' => 'ajax("/api/threadclose", {tid: '.$tid.'})');
+            $actionlinks[] = array('title' => __('Close'), 'js' => 'api("/threadclose", {tid: '.$tid.'})');
 
         if($thread['sticky'])
-            $actionlinks[] = array('title' => __('Unstick'), 'ng' => 'ajax("/api/threadunstick", {tid: '.$tid.'})');
+            $actionlinks[] = array('title' => __('Unstick'), 'js' => 'api("/threadunstick", {tid: '.$tid.'})');
         else
-            $actionlinks[] = array('title' => __('Stick'), 'ng' => 'ajax("/api/threadstick", {tid: '.$tid.'})');
+            $actionlinks[] = array('title' => __('Stick'), 'js' => 'api("/threadstick", {tid: '.$tid.'})');
     }
 
     if(Permissions::canEditThread($thread, $forum))
-        $actionlinks[] = array('title' => __('Rename'), 'ng' => 'threadRename('.$tid.')');
+        $actionlinks[] = array('title' => __('Rename'), 'js' => 'threadRename('.$tid.')');
 
     //Render page
     renderPage('thread.html', array(

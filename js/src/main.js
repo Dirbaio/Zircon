@@ -39,6 +39,8 @@ function setCookie(sKey, sValue, vEnd, sPath, sDomain, bSecure) {
     document.cookie = lol;
 }
 
+window.api = api;
+
 window.toggleMobileLayout = (enabled) => {
     setCookie('mobileversion', enabled, 20 * 365 * 24 * 60 * 60, '/');
     window.location.reload();
@@ -66,4 +68,8 @@ window.threadRename = (tid) => {
 
 window.logout = () => {
     api('/logout', {});
+};
+
+window.markasread = (fid) => {
+    api('/markasread', { fid });
 };
