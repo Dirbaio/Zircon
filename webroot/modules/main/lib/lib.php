@@ -19,7 +19,7 @@ require(__DIR__.'/Validate.php');
 
 require(__DIR__.'/postfilter/htmlfilter.php');
 
-Config::load(ModuleHandler::getRoot().'/config.php');
+Config::load();
 
 Sql::connect(Config::get('mysql'));
 

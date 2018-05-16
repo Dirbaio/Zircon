@@ -30,6 +30,11 @@ case $task in
             --name zircon \
             -p 0.0.0.0:80:80 \
             --link zircon_db:db \
+            -e ZIRCON_MYSQL_HOST=zircon_db \
+            -e ZIRCON_MYSQL_USER=zircon \
+            -e ZIRCON_MYSQL_PASSWORD=zircon \
+            -e ZIRCON_MYSQL_DATABASE=zircon \
+            -e ZIRCON_SALT=utm0cq92u3t0q923uq \
             -v $PWD:/app \
             -v $PWD/data:/data \
             zircon

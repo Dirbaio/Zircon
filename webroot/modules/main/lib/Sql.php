@@ -11,7 +11,7 @@ class Sql
 	{
 		self::$config = $config;
 		$dbstring = 'mysql:host='.$config['host'].';dbname='.$config['database'].';charset='.$config['charset'];
-		self::$db = new PDO($dbstring, $config['user'], $config['pass']);
+		self::$db = new PDO($dbstring, $config['user'], $config['password']);
 	    self::$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 	    //This is needed to workaround this bug;
@@ -41,7 +41,7 @@ class Sql
 	{
 		global $queryCount;
 		$queryCount++;
-		
+
 		//Get the query and the args
 		$args = func_get_args();
 		if (is_array($args[0])) $args = $args[0];
@@ -49,7 +49,7 @@ class Sql
 		$query = $args[0];
 		array_shift($args); //Remove first element of args, so args only contains the actual arguments
 		if ($args !== NULL && isset($args[0]) && is_array($args[0])) $args = $args[0];
-		
+
 		if($args !== NULL && count(array_filter(array_keys($args), 'is_string')) != 0) //Associative array!
 		{
 			$newArgs = array();
@@ -144,7 +144,7 @@ class Sql
 	        $lastPart = array_pop($parts);
 
 	        $dest = &$res;
-	        foreach ($parts as $part) 
+	        foreach ($parts as $part)
 	        {
 	            if (!isset($dest[$part]) || !is_array($dest[$part]))
 	                $dest[$part] = array();
