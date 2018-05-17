@@ -21,8 +21,8 @@ function request($text='', $tid=0)
         $lastPost = Sql::querySingle("SELECT * FROM {posts} WHERE user=? ORDER BY date DESC LIMIT 1", Session::id());
 
         //If it looks similar to this one, assume the user has double-clicked the button.
-        if($lastPost["thread"] == $tid)
-            jsonRedirect(Url::format('/post/#', $lastPost['id']));
+        //if($lastPost["thread"] == $tid)
+        //    jsonRedirect(Url::format('/post/#', $lastPost['id']));
 
         fail(__("You're going too damn fast! Slow down a little."));
     }
@@ -37,7 +37,7 @@ function request($text='', $tid=0)
 
     $pid = Sql::insertId();
 
-    Sql::Query("INSERT INTO {posts_text} (pid,text,revision,user,date) VALUES (?,?,?,?,?)", 
+    Sql::Query("INSERT INTO {posts_text} (pid,text,revision,user,date) VALUES (?,?,?,?,?)",
         $pid, $text, 0, Session::id(), $now);
 
     Sql::query("UPDATE {forums} SET numposts=numposts+1, lastpostdate=?, lastpostuser=?, lastpostid=? WHERE id=?",

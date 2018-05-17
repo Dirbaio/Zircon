@@ -140,7 +140,7 @@ class Schema
                 'fields' => array
                 (
                     'forum' => $int,
-                    'user' => $int,            
+                    'user' => $int,
                 ),
                 'keys' => array
                 (
@@ -203,7 +203,7 @@ class Schema
                 'fields' => array
                 (
                     'uid' => $int,
-                    'fid' => $int,            
+                    'fid' => $int,
                 ),
                 'keys' => array
                 (
@@ -233,8 +233,8 @@ class Schema
                 'fields' => array
                 (
                     'ip' => $ip,
-                    'reason' => self::varchar(128),        
-                    'date' => $int,            
+                    'reason' => self::varchar(128),
+                    'date' => $int,
                     'whitelisted' => $bool,
                 ),
                 'keys' => array
@@ -253,7 +253,7 @@ class Schema
                 (
                     'version' => $int,
                     'views' => $int,
-                    'hotcount' => $int,            
+                    'hotcount' => $int,
                     'maxusers' => $int,
                     'maxusersdate' => $int,
                     'maxuserstext' => $text,
@@ -501,10 +501,10 @@ class Schema
             (
                 'fields' => array
                 (
-                    'id' => $AI,        
-                    'user' => $int,    
+                    'id' => $AI,
+                    'user' => $int,
                     'ip' => $ip,
-                    'time' => $int,    
+                    'time' => $int,
                     'query' => $text,
                     'get' => $text,
                     'post' => $text,
@@ -595,7 +595,7 @@ class Schema
                     'lastpostid' => $int,  // derived
                     'closed' => $bool,
                     'sticky' => $bool,
-                    'poll' => $int,  // 0 if no poll, poll ID otherwise 
+                    'poll' => $int,  // 0 if no poll, poll ID otherwise
                 ),
                 'keys' => array
                 (
@@ -676,7 +676,7 @@ class Schema
                     'birthday' => $int,
                     'email' => self::varchar(64),
                     'homepageurl' => self::varchar(128),
-                    'homepagename' => self::varchar(128),            
+                    'homepagename' => self::varchar(128),
                     'lastpostdate' => $int,
                     'lastpostid' => $int,
                     'lastactivity' => $int,
@@ -686,7 +686,7 @@ class Schema
                     'lastuseragent' => $text,
                     'postsperpage' => $int,
                     'threadsperpage' => $int,
-                    'timezone' => $float,
+                    'timezone' => self::varchar(64),
                     'theme' => self::varchar(64),
                     'signsep' => $bool,
                     'dateformat' => self::varchar(32),
@@ -708,6 +708,8 @@ class Schema
                     'convertpassword' => self::varchar(256),
                     'convertpasswordsalt' => self::varchar(256),
                     'convertpasswordtype' => self::varchar(256),
+                    'color' => self::varchar(128),
+                    'hascolor' => $bool,
                 ),
                 'keys' => array
                 (

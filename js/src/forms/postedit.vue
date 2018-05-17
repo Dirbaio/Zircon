@@ -18,7 +18,7 @@
 
 <script>
 import api from '../api';
-import postbox from './postbox';
+import postbox from '../components/postbox';
 
 export default {
     components: {

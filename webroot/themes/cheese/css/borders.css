@@ -35,7 +35,7 @@ table.outline>tr>th:first-child,
 table.outline>tbody>tr>th:first-child {
     border-left-width: 1px;
 }
-table.outline:first-child>tr:first-child>th,
+table.outline>tr:first-child>th,
 table.outline>tbody:first-child>tr:first-child>th {
     border-top-width: 1px;
 }

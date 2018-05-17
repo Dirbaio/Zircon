@@ -6,7 +6,7 @@ Vue.config.productionTip = false;
 for(const el of document.querySelectorAll('[data-component]')) {
     const compName = el.getAttribute('data-component');
     /* eslint-disable global-require, import/no-dynamic-require */
-    const comp = require(`./components/${compName}`).default;
+    const comp = require(`./forms/${compName}`).default;
 
     let props = {};
 

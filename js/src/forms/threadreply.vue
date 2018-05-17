@@ -19,7 +19,7 @@
 <script>
 import Vue from 'vue';
 import api from '../api';
-import postbox from './postbox';
+import postbox from '../components/postbox';
 
 export default {
     components: {
@@ -46,7 +46,7 @@ export default {
     },
     methods: {
         submit() {
-            api('/messagereply', {
+            api('/threadreply', {
                 tid: this.draftTarget,
                 ...this.draft,
             });

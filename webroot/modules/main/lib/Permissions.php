@@ -49,7 +49,7 @@ class Permissions
             fail(__('You are not allowed to create threads in this forum.'));
     }
 
-    
+
     public static function canMod($forum, $user = null)
     {
         if(!Session::isLoggedIn()) return false;
@@ -73,7 +73,7 @@ class Permissions
         if($thread['forum'] != $forum['id'])
             throw new Exception('You must pass a thread and its forum to canReply');
 
-        return $forum['minpowerreply'] <= $user['powerlevel'] && 
+        return $forum['minpowerreply'] <= $user['powerlevel'] &&
             (!$thread['closed'] || self::canMod($forum, $user));
     }
 
@@ -83,7 +83,7 @@ class Permissions
             fail(__('You are not allowed to reply in this thread.'));
     }
 
-    
+
     public static function canEditThread($thread, $forum, $user = null)
     {
         if(!Session::isLoggedIn()) return false;
@@ -92,7 +92,7 @@ class Permissions
         if($thread['forum'] != $forum['id'])
             throw new Exception('You must pass a thread and its forum to canReply');
 
-        return self::canMod($forum, $user) || 
+        return self::canMod($forum, $user) ||
             ($thread['user'] == $user['id'] && self::canReply($thread, $forum, $user));
     }
 
@@ -101,7 +101,7 @@ class Permissions
         if(!self::canEditThread($thread, $forum, $user))
             fail(__('You are not allowed to edit this thread.'));
     }
-    
+
 
     public static function canEditPost($post, $thread, $forum, $user = null)
     {
@@ -113,7 +113,7 @@ class Permissions
         if($thread['forum'] != $forum['id'])
             throw new Exception('You must pass a thread and its forum to canReply');
 
-        return self::canMod($forum, $user) || 
+        return self::canMod($forum, $user) ||
             ($post['user'] == $user['id'] && self::canReply($thread, $forum, $user) && !$post['deleted']);
     }
 
@@ -123,7 +123,7 @@ class Permissions
             fail(__('You are not allowed to edit this post.'));
     }
 
-    
+
     public static function canDeletePost($post, $thread, $forum, $user = null)
     {
         if(!Session::isLoggedIn()) return false;
@@ -144,15 +144,15 @@ class Permissions
     }
 
 
-    
+
     public static function canEditUser($victim, $user = null)
     {
         if(!Session::isLoggedIn()) return false;
         if($user === null) $user = Session::get();
 
-        return 
-            ($victim['id'] == $user['id'] && $user['powerlevel'] >= 0) || 
-            $user['powerlevel'] >= 3;
+        return
+            ($victim['id'] == $user['id'] && $user['powerlevel'] >= 0) ||
+            ($user['powerlevel'] >= 3 && $victim['powerlevel'] < 4);
     }
 
     public static function assertCanEditUser($victim, $user = null)
@@ -161,7 +161,22 @@ class Permissions
             fail(__('You are not allowed to edit this user.'));
     }
 
-    
+    public static function getProfileFeatures($user = null)
+    {
+        if(!Session::isLoggedIn()) return array();
+        if($user === null) $user = Session::get();
+
+        $res = array();
+        if($user['powerlevel'] > 0 || $user['posts'] >= 100)
+            $res['title'] = true;
+        if($user['powerlevel'] > 0 || $user['posts'] >= 10)
+            $res['minipic'] = true;
+        if($user['powerlevel'] > 0)
+            $res['color'] = true;
+        return $res;
+    }
+
+
     public static function canSnoopMessages($user = null)
     {
         if(!Session::isLoggedIn()) return false;

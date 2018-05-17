@@ -5,7 +5,7 @@ function request()
     Permissions::assertCanDoStuff();
 
     //TODO make configurable
-    $maxSize = 10*1024*1024;
+    $maxSize = 100*1024*1024;
 
     if(!isset($_FILES['file']))
         fail(__("No file given."));
@@ -38,5 +38,8 @@ function request()
     if(!is_file($destfile))
         copy($file['tmp_name'], $destfile);
 
-    jsonRedirect(Url::format('/file/:/$', $id, $file['name']));
+    json(array(
+        'id' => $id,
+        'url' => Url::format('/file/:/$', $id, $file['name'])
+    ));
 }

@@ -212,10 +212,15 @@ function run() {
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST')
         {
-            $input = json_decode(file_get_contents('php://input'), true);
-            if(!is_array($input) || json_last_error() !== JSON_ERROR_NONE)
-                die("Invalid JSON data");
-            Csrf::check($input['csrftoken']);
+            if(isset($_FILES['file'])) {
+                $input = array();
+                Csrf::check($_POST['csrftoken']);
+            } else {
+                $input = json_decode(file_get_contents('php://input'), true);
+                if(!is_array($input) || json_last_error() !== JSON_ERROR_NONE)
+                    die("Invalid JSON data");
+                Csrf::check($input['csrftoken']);
+            }
         }
         else
             $input = $_GET;

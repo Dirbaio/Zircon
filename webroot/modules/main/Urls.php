@@ -39,6 +39,7 @@ $urls = array(
     'GET /profile/#id(-:)?' => 'member',
     'GET /profile.php' => 'member',
     'GET /u/#id(-:)?/edit' => 'memberedit',
+    'POST /api/memberedit' => 'api/memberedit',
     'GET /u/#id(-:)?/posts(/p#from)?' => 'memberposts',
     'GET /u/#id(-:)?/threads(/p#from)?' => 'memberthreads',
     'POST /api/membercomment' => 'api/membercomment',

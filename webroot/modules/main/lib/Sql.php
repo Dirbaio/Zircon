@@ -37,30 +37,13 @@ class Sql
         return self::$config['prefix'];
     }
 
-    public static function query()
+    public static function query($query, ...$args)
     {
         global $queryCount;
         $queryCount++;
 
-        //Get the query and the args
-        $args = func_get_args();
-        if (is_array($args[0])) $args = $args[0];
-
-        $query = $args[0];
-        array_shift($args); //Remove first element of args, so args only contains the actual arguments
-        if ($args !== NULL && isset($args[0]) && is_array($args[0])) $args = $args[0];
-
-        if($args !== NULL && count(array_filter(array_keys($args), 'is_string')) != 0) //Associative array!
-        {
-            $newArgs = array();
-            foreach($args as $key => $val)
-                $newArgs[':$key'] = $val;
-            $args = $newArgs;
-        }
-
         $query = preg_replace('@\{([a-z]\w*)\}@si', self::$config['prefix'].'$1', $query);
-        $query = preg_replace_callback('@(\w+)\.\(([\w,\s]+)\)@s', function ($match)
-        {
+        $query = preg_replace_callback('@(\w+)\.\(([\w,\s]+)\)@s', function ($match) {
             $ret = array();
             $prefix = $match[1];
             $fields = preg_split('@\s*,\s*@', $match[2]);
@@ -95,29 +78,29 @@ class Sql
         return $stmt;
     }
 
-    public static function queryValue()
+    public static function queryValue($query, ...$args)
     {
-        $res = self::query(func_get_args());
+        $res = self::query($query, ...$args);
         $res = $res->fetchAll(PDO::FETCH_NUM);
         return $res[0][0];
     }
 
-    public static function queryAffected()
+    public static function queryAffected($query, ...$args)
     {
-        $res = self::query(func_get_args());
+        $res = self::query($query, ...$args);
         return $res->rowCount();
     }
 
-    public static function querySingle()
+    public static function querySingle($query, ...$args)
     {
-        $stmt = self::query(func_get_args());
-        return self::fetch($stmt);
+        $res = self::query($query, ...$args);
+        return self::fetch($res);
     }
 
-    public static function queryAll()
+    public static function queryAll($query, ...$args)
     {
-        $stmt = self::query(func_get_args());
-        return self::fetchAll($stmt);
+        $res = self::query($query, ...$args);
+        return self::fetchAll($res);
     }
 
     public static function fetch($result)
