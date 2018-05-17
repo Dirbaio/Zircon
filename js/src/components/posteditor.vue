@@ -1,37 +1,37 @@
 <template>
     <div>
         <div class="postToolbar">
-            <button title="Bold" @click="add('[b]', '[/b]');">
+            <button title="Bold" @click.prevent="add('[b]', '[/b]');">
                 <i class="fa fa-bold"></i>
             </button>
-            <button title="Italic" @click="add('[i]', '[/i]');">
+            <button title="Italic" @click.prevent="add('[i]', '[/i]');">
                 <i class="fa fa-italic"></i>
             </button>
-            <button title="Underlined" @click="add('[u]', '[/u]');">
+            <button title="Underlined" @click.prevent="add('[u]', '[/u]');">
                 <i class="fa fa-underline"></i>
             </button>
-            <button title="Strikethrough" @click="add('[s]', '[/s]');">
+            <button title="Strikethrough" @click.prevent="add('[s]', '[/s]');">
                 <i class="fa fa-strikethrough"></i>
             </button>
-            <button title="Superscript" @click="add('<sup>', '</sup>');">
+            <button title="Superscript" @click.prevent="add('<sup>', '</sup>');">
                 <i class="fa fa-superscript"></i>
             </button>
-            <button title="Subscript" @click="add('<sub>', '</sub>');">
+            <button title="Subscript" @click.prevent="add('<sub>', '</sub>');">
                 <i class="fa fa-subscript"></i>
             </button>
-            <button title="Link" @click="add('[url=http://whatever/]', '[/url]');">
+            <button title="Link" @click.prevent="add('[url=http://whatever/]', '[/url]');">
                 <i class="fa fa-link"></i>
             </button>
-            <button title="Image" @click="add('[img]', '[/img]');">
+            <button title="Image" @click.prevent="add('[img]', '[/img]');">
                 <i class="fa fa-picture-o"></i>
             </button>
-            <button title="Quote" @click="add('[quote=Someone]', '[/quote]');">
+            <button title="Quote" @click.prevent="add('[quote=Someone]', '[/quote]');">
                 <i class="fa fa-quote-left"></i>
             </button>
-            <button title="Spoiler" @click="add('[spoiler]', '[/spoiler]');">
+            <button title="Spoiler" @click.prevent="add('[spoiler]', '[/spoiler]');">
                 <i class="fa fa-ellipsis-h"></i>
             </button>
-            <button title="Spoiler" @click="add(':)');">
+            <button title="Spoiler" @click.prevent="add(':)');">
                 :)
             </button>
             <upload multiple @upload="file($event)" title="Attach files">

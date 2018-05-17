@@ -1,6 +1,35 @@
 <template>
-    <div>
-        <table class="outline margin">
+    <form @submit.prevent="submit()">
+        <table class="outline margin" v-if="confirming">
+            <tr class="header0">
+                <th colspan="2">
+                    Password confirmation
+                </th>
+            </tr>
+            <tr>
+                <td class="cell2">
+                </td>
+                <td class="cell0">
+                    Changes you made require password confirmation for security. Please enter your password.
+                </td>
+            </tr>
+            <tr>
+                <td class="cell2">
+                    <label for="password">Password</label>
+                </td>
+                <td class="cell1">
+                    <input type="password" id="password" name="password" v-model="password" maxlength="32" />
+                </td>
+            </tr>
+            <tr class="cell2">
+                <td></td>
+                <td>
+                    <button type="submit">Save</button>
+                    <a href="/lostpass">Forgot password?</a>
+                </td>
+            </tr>
+        </table>
+        <table v-else class="outline margin">
             <tr class="header0">
                 <th colspan="2">Appearance</th>
             </tr>
@@ -41,7 +70,7 @@
                     <label for="signature">Signature</label>
                 </td>
                 <td>
-                    <textarea id="signature" style="width: 98%;" v-model="user.signature"></textarea>
+                    <posteditor id="signature" v-model="user.signature"></posteditor>
                 </td>
             </tr>
             <tr class="header0">
@@ -69,7 +98,9 @@
                     Password
                 </td>
                 <td>
-                    <a href="/">Change password</a>
+                    <input type="password" v-model="user.pass" size="13" maxlength="32" />
+                    Repeat:
+                    <input type="password" v-model="user.pass2" size="13" maxlength="32" />
                 </td>
             </tr>
             <tr class="cell0">
@@ -120,7 +151,7 @@
                     <label for="bio">Bio</label>
                 </td>
                 <td>
-                    <textarea id="bio" style="width: 98%;" v-model="user.bio"></textarea>
+                    <posteditor id="bio" v-model="user.bio"></posteditor>
                 </td>
             </tr>
             <tr class="cell1">
@@ -168,29 +199,31 @@
             </tr>
             <tr class="cell2">
                 <td colspan="2">
-                    <button @click="submit()">Save</button>
+                    <button type="submit">Save</button>
                 </td>
             </tr>
         </table>
-
-        MEMBER EDIT YAY
-        {{user}}
-        {{timezones}}
-    </div>
+    </form>
 </template>
 
 <script>
 import api from '../api';
+import posteditor from '../components/posteditor';
 
 export default {
+    components: {
+        posteditor,
+    },
     data() {
         return {
+            confirming: false,
+            password: '',
         };
     },
     props: {
         user: Object,
-        timezones: Object,
-        themes: Object,
+        timezones: Array,
+        themes: Array,
         features: Object,
     },
     methods: {
@@ -198,6 +231,11 @@ export default {
             api('/memberedit', {
                 id: this.user.id,
                 user: this.user,
+                password: this.password,
+            }).then((data) => {
+                if(data === 'password_needed') {
+                    this.confirming = true;
+                }
             });
         },
     },

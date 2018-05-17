@@ -64,26 +64,35 @@
     <tr class="header0">
         <th colspan="2">Personal information</th>
     </tr>
+    {% if user.showemail %}
     <tr>
         <td class="cell2">Email</td>
         <td class="cell1">{{ user.email }}</td>
     </tr>
+    {% endif %}
+    {% if user.realname %}
     <tr>
         <td class="cell2">Real name</td>
         <td class="cell0">{{ user.realname }}</td>
     </tr>
+    {% endif %}
+    {% if user.location %}
     <tr>
         <td class="cell2">Location</td>
         <td class="cell1">{{ user.location }}</td>
     </tr>
+    {% endif %}
     <tr>
         <td class="cell2">Time zone</td>
         <td class="cell0">{{ user.timezone }}</td>
     </tr>
+    {% if user.homepageurl %}
     <tr>
         <td class="cell2">Homepage</td>
         <td class="cell1"><a href="{{user.homepageurl}}">{{user.homepagename}}</a> - {{ user.homepageurl }}</td>
     </tr>
+    {% endif %}
+    {% if user.bio %}
     <tr class="header0">
         <th colspan="2">Bio</th>
     </tr>
@@ -92,6 +101,7 @@
             {{ user.bio | cleanUpPost | raw }}
         </td>
     </tr>
+    {% endif %}
 </table>
 
 </td><td style="vertical-align: top; border: 0px none;">

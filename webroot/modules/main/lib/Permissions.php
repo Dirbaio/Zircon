@@ -17,7 +17,6 @@ class Permissions
             fail(__('You are not allowed to do this.'));
     }
 
-
     public static function canViewForum($forum, $user = null)
     {
         if(!Session::isLoggedIn())
@@ -173,6 +172,7 @@ class Permissions
             $res['minipic'] = true;
         if($user['powerlevel'] > 0)
             $res['color'] = true;
+        $res['_'] = '_';
         return $res;
     }
 
